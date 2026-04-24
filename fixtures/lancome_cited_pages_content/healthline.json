@@ -1,0 +1,24 @@
+{
+  "url": "https://healthline.com/health/beauty-skin-care/best-anti-aging-serum",
+  "title": "The Best Anti-Aging Serums, According to Experts",
+  "domain": "healthline.com",
+  "classification": "EDITORIAL",
+  "url_classification": "LISTICLE",
+  "citation_count": 5,
+  "retrieval_count": 5,
+  "citation_rate": 1.0,
+  "mentions_lancome": false,
+  "content_excerpt_3000": "Serums can be beneficial for targeting a variety of skin concerns and skin types. It's an opportunity to incorporate more active ingredients in your regimen, though a serum shouldn't replace your moisturizer.\n\nAccording to board certified dermatologist [Jenny Liu], MD, FAAD, \"Serums contain higher concentrations of active ingredients but don't usually work as well as moisturizers to minimize water loss through skin…because they are often formulated as a liquid or light emulsion and don't contain occlusives or emollients to hydrate and moisturize skin.\"\n\nInstead, serums complement moisturizers, targeting other skin concerns like fine lines, wrinkles, dark spots, hyperpigmentation, and other signs of aging.\n\n|  | Price | Skin type | Key ingredients | When to use |\n| --- | --- | --- | --- | --- |\n| Good Molecules Super Peptide Serum | $12 | all | copper tripeptides, acetyl hexapeptide-8, acetyl octapeptide-3 | morning and evening |\n| Cetaphil Healthy Renew Serum | $22.99 | all | purified peptides, vitamin B3, vitamin B5, botanical glycerin, niacinamide, tocopherol | morning and evening |\n| Naturium 12% Niacinamide + 2% Zinc | $17 | sensitive skin, dry skin, acne-prone skin, aging skin, combination skin | niacinamide, zinc, glycerin, hyaluronic acid, vitamin E | morning and evening |\n| Neutrogena Invisible Daily Defense Face Serum SPF 60+ | $21.32 | all | vitamin E, feverfew, ginger, glycerin | morning |\n| La Roche-Posay Vitamin C12 Serum | $44.99 | normal skin, sensitive skin, dry skin | 12% vitamin C, neurosensine, salicylic acid, hyaluronic acid, thermal spring water | morning |\n| The Ordinary Retinol 1% in Squalane | $9.30 | all |  | evening |\n| CeraVe Skin Renewing Retinol Serum | $22.99 | all | retinol, ceramides, hyaluronic acid | evening |\n\nTo choose the best serums for anti-aging, we considered a variety of traits. First, each product has to go through our rigorous vetting standards.\n\nPrice, ingredients, customer reviews, skin types, and when to incorporate these serums into your routine are some of the other factors we considered.\n\nSince serums have a higher concentration of active ingredients, the results tend to be faster when addressing signs of aging.\n\n\"A serum is simply the vehicle in which active ingredients in a product are delivered to the skin,\" explains board certified dermatologist [Adeline Kikam], DO, MS, FAAD.\n\n\"They are also lightweight and easier to layer,\" Kikam adds. Some of the active ingredients that Kikam recommends for signs of aging include:\n- peptides\n- retinol\n- antioxidants, like vitamin C\n\nOther common active ingredients found in serums include:\n- hyaluronic acid\n- niacinamide\n- resveratrol\n- alpha arbutin\n- azelaic acid\n- exfoliants\n- vitamin E",
+  "content_length": 7697,
+  "editorial_signals": {
+    "h2_count_observed": 8,
+    "product_blocks_with_ingredients": 7,
+    "ingredient_mentions": ["peptides", "niacinamide", "vitamin C", "vitamin E", "retinol", "hyaluronic acid", "ceramides", "squalane", "resveratrol", "alpha arbutin", "azelaic acid"],
+    "expert_quotes": 2,
+    "expert_names": ["Dr Jenny Liu MD FAAD", "Dr Adeline Kikam DO MS FAAD"],
+    "comparison_tables": 1,
+    "comparison_table_dimensions": ["Price", "Skin type", "Key ingredients", "When to use"],
+    "skin_type_sections": true,
+    "application_sections": true
+  }
+}

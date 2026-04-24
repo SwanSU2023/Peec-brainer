@@ -1,0 +1,281 @@
+{
+  "prompt_text": "Quel est le meilleur sérum anti-âge en 2026 selon les dermatologues ?",
+  "brand_url": "https://lancome.fr/soin/par-categorie/serum-visage",
+  "brand_audit": {
+    "url": "https://lancome.fr/soin/par-categorie/serum-visage",
+    "title": "Sérum Anti-Âge Visage Hydratant Femme | Lancôme Soin",
+    "url_classification": "CATEGORY_PAGE",
+    "editorial": {
+      "h2_count": 0,
+      "h3_count": 0,
+      "word_count": 215,
+      "ingredient_mentions": [],
+      "expert_quote_count": 0,
+      "expert_names": [],
+      "comparison_table_count": 0,
+      "per_product_block_signals": [],
+      "has_toc": false,
+      "has_how_we_tested": false,
+      "has_meet_the_experts": false,
+      "has_skin_type_sections": false,
+      "has_application_sections": false
+    },
+    "schema": {
+      "jsonld_types": [
+        "BreadcrumbList",
+        "ListItem",
+        "Organization",
+        "WebPage"
+      ],
+      "microdata_types": [],
+      "rdfa_types": [],
+      "opengraph_present": true,
+      "has_product": false,
+      "has_aggregate_rating": false,
+      "has_review": false,
+      "has_faq_page": false,
+      "has_how_to": false,
+      "has_breadcrumb": true,
+      "has_article": false,
+      "has_organization": true
+    },
+    "is_cited": false,
+    "citation_count": 0,
+    "retrieval_count": 0,
+    "citation_rate": 0.0
+  },
+  "cited_audits": [
+    {
+      "url": "https://vogue.fr/beaute/article/meilleurs-serums-anti-age",
+      "title": "Les 13 meilleurs sérums anti-âge 2026 aux actifs cliniquement prouvés",
+      "url_classification": "LISTICLE",
+      "editorial": {
+        "h2_count": 11,
+        "h3_count": 0,
+        "word_count": 415,
+        "ingredient_mentions": [
+          "acide hyaluronique",
+          "ceramide",
+          "collagen",
+          "collagene",
+          "collagène",
+          "céramide",
+          "peptide",
+          "peptides",
+          "retinol",
+          "rétinol",
+          "tripeptide",
+          "vitamine c"
+        ],
+        "expert_quote_count": 1,
+        "expert_names": [
+          "Dr. Pierre Ricaud"
+        ],
+        "comparison_table_count": 0,
+        "per_product_block_signals": [
+          "Actifs clés",
+          "Type de peau",
+          "Application"
+        ],
+        "has_toc": false,
+        "has_how_we_tested": false,
+        "has_meet_the_experts": false,
+        "has_skin_type_sections": true,
+        "has_application_sections": true
+      },
+      "schema": {
+        "jsonld_types": [
+          "AggregateRating",
+          "Article",
+          "BreadcrumbList",
+          "ListItem",
+          "Organization",
+          "Person",
+          "Product",
+          "Rating",
+          "Review"
+        ],
+        "microdata_types": [],
+        "rdfa_types": [],
+        "opengraph_present": true,
+        "has_product": true,
+        "has_aggregate_rating": true,
+        "has_review": true,
+        "has_faq_page": false,
+        "has_how_to": false,
+        "has_breadcrumb": true,
+        "has_article": true,
+        "has_organization": true
+      },
+      "is_cited": true,
+      "citation_count": 4,
+      "retrieval_count": 11,
+      "citation_rate": 0.36
+    },
+    {
+      "url": "https://healthline.com/health/beauty-skin-care/best-anti-aging-serum",
+      "title": "The Best Anti-Aging Serums, According to Experts",
+      "url_classification": "LISTICLE",
+      "editorial": {
+        "h2_count": 0,
+        "h3_count": 0,
+        "word_count": 445,
+        "ingredient_mentions": [
+          "azelaic",
+          "ceramide",
+          "céramide",
+          "hexapeptide",
+          "hyaluronic acid",
+          "niacinamide",
+          "octapeptide",
+          "peptide",
+          "peptides",
+          "resveratrol",
+          "resvératrol",
+          "retinol",
+          "rétinol",
+          "salicylic",
+          "squalane",
+          "tripeptide",
+          "vitamin c"
+        ],
+        "expert_quote_count": 1,
+        "expert_names": [
+          "\"A serum is simply the vehicle in which active ingredients in a product are delivered to the skin,\" explains"
+        ],
+        "comparison_table_count": 1,
+        "per_product_block_signals": [
+          "Key ingredients",
+          "Skin type",
+          "When to use"
+        ],
+        "has_toc": false,
+        "has_how_we_tested": false,
+        "has_meet_the_experts": false,
+        "has_skin_type_sections": true,
+        "has_application_sections": true
+      },
+      "schema": {
+        "jsonld_types": [
+          "AggregateRating",
+          "Answer",
+          "Article",
+          "BreadcrumbList",
+          "FAQPage",
+          "ItemList",
+          "ListItem",
+          "Offer",
+          "Organization",
+          "Person",
+          "Product",
+          "Question"
+        ],
+        "microdata_types": [],
+        "rdfa_types": [],
+        "opengraph_present": true,
+        "has_product": true,
+        "has_aggregate_rating": true,
+        "has_review": false,
+        "has_faq_page": true,
+        "has_how_to": false,
+        "has_breadcrumb": true,
+        "has_article": true,
+        "has_organization": true
+      },
+      "is_cited": true,
+      "citation_count": 5,
+      "retrieval_count": 5,
+      "citation_rate": 1.0
+    },
+    {
+      "url": "https://vogue.co.uk/article/best-anti-ageing-serums",
+      "title": "These 11 The Best Anti-Ageing Serums Are Dermatologist Approved For A Reason",
+      "url_classification": "LISTICLE",
+      "editorial": {
+        "h2_count": 2,
+        "h3_count": 0,
+        "word_count": 362,
+        "ingredient_mentions": [
+          "ascorbate",
+          "collagen",
+          "ergothioneine",
+          "ergothionéine",
+          "glutathion",
+          "glutathione",
+          "peptide",
+          "peptides",
+          "retinal",
+          "rétinal",
+          "squalane",
+          "vitamin c"
+        ],
+        "expert_quote_count": 2,
+        "expert_names": [
+          "\"When it comes to anti-ageing serums, it's all about choosing ingredients that work smarter for your skin,\" says",
+          "dermatologist Dr"
+        ],
+        "comparison_table_count": 0,
+        "per_product_block_signals": [
+          "Key ingredients",
+          "Best for",
+          "Editor's experience",
+          "Why it's"
+        ],
+        "has_toc": true,
+        "has_how_we_tested": true,
+        "has_meet_the_experts": true,
+        "has_skin_type_sections": false,
+        "has_application_sections": false
+      },
+      "schema": {
+        "jsonld_types": [
+          "AggregateRating",
+          "Article",
+          "BreadcrumbList",
+          "ListItem",
+          "Organization",
+          "Person",
+          "Product",
+          "Rating",
+          "Review"
+        ],
+        "microdata_types": [],
+        "rdfa_types": [],
+        "opengraph_present": true,
+        "has_product": true,
+        "has_aggregate_rating": true,
+        "has_review": true,
+        "has_faq_page": false,
+        "has_how_to": false,
+        "has_breadcrumb": true,
+        "has_article": true,
+        "has_organization": true
+      },
+      "is_cited": true,
+      "citation_count": 7,
+      "retrieval_count": 8,
+      "citation_rate": 0.88
+    }
+  ],
+  "editorial_gaps": [
+    "Structure H2 : la page marque a 0 H2 contre une moyenne de 4.3 sur les pages citées. Les LLMs privilégient les pages structurées (5+ H2 minimum).",
+    "Couverture ingrédients : 0 ingrédients actifs nommés contre une moyenne de 13.7 sur les pages citées. Les LLMs raisonnent par ingrédient actif ; une page qui ne les nomme pas est invisible.",
+    "Experts cités : 100% des pages citées contiennent des citations de dermatologues (MD, FAAD, DO). La page marque n'en a aucune."
+  ],
+  "schema_gaps": [
+    "Schema `Product` : présent sur 3/3 pages citées, absent sur la page marque.",
+    "Schema `AggregateRating` : présent sur 3/3 pages citées, absent sur la page marque.",
+    "Schema `Review` : présent sur 2/3 pages citées, absent sur la page marque.",
+    "Schema `Article` : présent sur 3/3 pages citées, absent sur la page marque."
+  ],
+  "prescriptive_actions": [
+    "Ajouter au moins 4 sections H2 substantielles sur la page cible.",
+    "Nommer explicitement les ingrédients actifs dans le contenu : acide hyaluronique, ascorbate, azelaic, ceramide, collagen, collagene, collagène, céramide.",
+    "Inclure 1-2 citations de dermatologues experts (avec crédibilité MD/FAAD explicitement visible) sur la formulation des actifs clés.",
+    "Implémenter JSON-LD `Product` sur les pages produit/catégorie.",
+    "Exposer `AggregateRating` (note + nombre d'avis) en JSON-LD.",
+    "Intégrer `Review` JSON-LD pour les avis produits.",
+    "Restructurer la page comme `Article` avec auteur/date/reviewedBy visible en JSON-LD."
+  ],
+  "verdict": "Gaps structurels majeurs détectés : 3 éditorial(aux), 4 schema. Les LLMs ne trouvent pas le signal attendu sur la page marque — ils se rabattent sur les 3 pages éditoriales citées."
+}

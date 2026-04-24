@@ -1,0 +1,95 @@
+{
+  "domain": "www.lancome.fr",
+  "peec_project_id": "or_331e410c-80a9-4fd3-b18e-000accf52961",
+  "ahrefs_project_id": 9742223,
+  "country": "fr",
+  "brand_display_name": "Lancôme",
+  "brand_aliases": ["lancome", "lancôme"],
+  "brand_patterns": ["lancome", "lancôme", "lancom"],
+  "subbrand_patterns": [
+    "advanced génifique", "advanced genifique", "génifique", "genifique",
+    "rénergie", "renergie",
+    "absolue", "absolue the serum",
+    "hypnôse", "hypnose",
+    "la vie est belle",
+    "idôle", "idole",
+    "la nuit trésor", "la nuit tresor",
+    "trésor", "tresor",
+    "teint idole", "teint miracle",
+    "lash idôle", "lash idole",
+    "ô de lancôme", "o de lancome",
+    "magie noire"
+  ],
+  "product_patterns": [
+    "la vie est belle intense", "la vie est belle vanille",
+    "tresor midnight rose", "trésor midnight rose",
+    "la nuit tresor caresse",
+    "hypnôse mascara", "hypnose mascara",
+    "rénergie h.c.f", "renergie h.c.f", "rénergie triple serum",
+    "teint idole ultra wear",
+    "grandiôse liner", "grandiose liner"
+  ],
+  "existing_topics": [
+    {"id": "to_34c7484d-d5f1-44f2-81ac-83c641059fce", "name": "Longévité"}
+  ],
+  "known_products": {
+    "La Vie Est Belle": {
+      "category": "parfum",
+      "aliases": ["la vie est belle", "parfum la vie est belle", "la vie est belle parfum", "la vie est belle lancome", "lancome la vie est belle", "la vie est belle vanille"]
+    },
+    "Idôle": {
+      "category": "parfum",
+      "aliases": ["idole lancome", "lancome idole", "parfum idole lancome", "idole"]
+    },
+    "La Nuit Trésor": {
+      "category": "parfum",
+      "aliases": ["la nuit tresor lancome", "la nuit tresor", "la nuit trésor"]
+    },
+    "Trésor": {
+      "category": "parfum",
+      "aliases": ["tresor lancome", "tresor de lancome", "trésor lancome", "tresor"]
+    },
+    "Hypnôse": {
+      "category": "parfum",
+      "aliases": ["hypnose lancome", "hypnôse lancome", "hypnose"]
+    },
+    "Ô de Lancôme": {
+      "category": "parfum",
+      "aliases": ["o de lancome", "ô de lancôme"]
+    },
+    "Magie Noire": {
+      "category": "parfum",
+      "aliases": ["magie noire"]
+    },
+    "Advanced Génifique": {
+      "category": "sérum",
+      "aliases": ["genifique", "génifique", "advanced genifique", "advanced génifique", "lancome genifique"]
+    },
+    "Rénergie": {
+      "category": "crème anti-âge",
+      "aliases": ["renergie", "rénergie", "lancome renergie", "lancome rénergie"]
+    },
+    "Absolue": {
+      "category": "gamme premium",
+      "aliases": ["absolue lancome", "lancome absolue"]
+    },
+    "Hypnôse Mascara": {
+      "category": "mascara",
+      "aliases": ["hypnose mascara"]
+    },
+    "Teint Idole": {
+      "category": "fond de teint",
+      "aliases": ["teint idole", "teint idôle"]
+    }
+  },
+  "category_hints": {
+    "Parfums": ["parfum", "eau de parfum", "eau de toilette", "la vie est belle", "idole", "idôle", "la nuit tresor", "tresor", "trésor", "hypnose", "hypnôse", "o de lancome", "ô de lancôme", "magie noire", "poeme", "miracle"],
+    "Maquillage – Yeux": ["mascara", "eye liner", "eyeliner", "fard a paupieres", "fard à paupières", "crayon yeux", "smoky"],
+    "Maquillage – Teint": ["fond de teint", "teint idole", "teint miracle", "correcteur", "poudre", "blush", "enlumineur", "highlighter", "bb crème", "cc crème"],
+    "Maquillage – Lèvres": ["rouge à lèvres", "rouge a levres", "l'absolu rouge", "gloss", "baume à lèvres", "crayon levres"],
+    "Soins – Sérums": ["serum", "sérum", "genifique", "génifique", "advanced genifique"],
+    "Soins – Crèmes": ["creme", "crème", "renergie", "rénergie", "absolue", "crème jour", "crème nuit"],
+    "Soins – Diagnostic": ["diagnostic peau", "diagnostic skin", "skincare routine", "routine peau"],
+    "Hydratation": ["hydratation", "hydratant", "crème hydratante", "creme hydratante"]
+  }
+}

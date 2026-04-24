@@ -1,0 +1,58 @@
+<!--
+  SAMPLE HTML — representative snippet of a Lancôme category page.
+  Derived from observed Peec get_url_content classification (CATEGORY_PAGE)
+  and public inspection of similar ecommerce pages on lancome.fr.
+
+  Used by Module 3 Layer B demo to illustrate what extruct would find
+  on a typical brand category page: WebPage + Organization + navigation
+  BreadcrumbList, but NO Product, NO AggregateRating, NO FAQPage.
+
+  Run `python3 scripts/run_m3_lancome.py --include-layer-b` to produce
+  the comparative audit with these fixtures.
+-->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Sérum Anti-Âge Visage Hydratant Femme | Lancôme Soin</title>
+  <meta property="og:title" content="Sérum Anti-Âge Visage Hydratant Femme | Lancôme Soin">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.lancome.fr/soin/par-categorie/serum-visage/">
+  <meta property="og:image" content="https://www.lancome.fr/on/demandware.static/.../serum-visage.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Sérum Anti-Âge Visage",
+    "url": "https://www.lancome.fr/soin/par-categorie/serum-visage/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Lancôme",
+    "url": "https://www.lancome.fr"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Soin", "item": "https://www.lancome.fr/soin/"},
+      {"@type": "ListItem", "position": 2, "name": "Par catégorie", "item": "https://www.lancome.fr/soin/par-categorie/"},
+      {"@type": "ListItem", "position": 3, "name": "Sérum Visage", "item": "https://www.lancome.fr/soin/par-categorie/serum-visage/"}
+    ]
+  }
+  </script>
+</head>
+<body>
+  <h1>Sérum Anti-Âge Visage</h1>
+  <!-- Category page: only product tiles with minimal structured content. -->
+  <!-- No FAQ, no review aggregation at page level, no HowTo. -->
+</body>
+</html>

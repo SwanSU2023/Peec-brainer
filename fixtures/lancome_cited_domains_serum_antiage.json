@@ -1,0 +1,22 @@
+{
+  "_note": "Domains cited by LLMs on prompt pr_76152213 (serum anti-age). Fetched from Peec get_domain_report on 2026-04-25, period 30 days.",
+  "prompt_id": "pr_76152213-9386-466a-b782-60cc2d1f8257",
+  "period": {"start": "2026-03-25", "end": "2026-04-24"},
+  "domains": [
+    {"domain": "ma-sante.news", "classification": "EDITORIAL", "citation_count": 11, "retrieval_count": 4, "citation_rate": 2.75},
+    {"domain": "vogue.fr", "classification": "EDITORIAL", "citation_count": 7, "retrieval_count": 15, "citation_rate": 0.64, "mentions_lancome": true},
+    {"domain": "vogue.co.uk", "classification": "EDITORIAL", "citation_count": 7, "retrieval_count": 9, "citation_rate": 0.88},
+    {"domain": "nymag.com", "classification": "EDITORIAL", "citation_count": 7, "retrieval_count": 2, "citation_rate": 3.5},
+    {"domain": "today.com", "classification": "EDITORIAL", "citation_count": 5, "retrieval_count": 11, "citation_rate": 0.5},
+    {"domain": "healthline.com", "classification": "EDITORIAL", "citation_count": 5, "retrieval_count": 5, "citation_rate": 1.0},
+    {"domain": "cosmopolitan.com", "classification": "EDITORIAL", "citation_count": 5, "retrieval_count": 2, "citation_rate": 2.5},
+    {"domain": "forbes.com", "classification": "EDITORIAL", "citation_count": 4, "retrieval_count": 12, "citation_rate": 0.44},
+    {"domain": "prevention.com", "classification": "EDITORIAL", "citation_count": 4, "retrieval_count": 4, "citation_rate": 1.0},
+    {"domain": "topsante.com", "classification": "EDITORIAL", "citation_count": 3, "retrieval_count": 6, "citation_rate": 0.6},
+    {"domain": "glowupbyparis.com", "classification": "CORPORATE", "citation_count": 3, "retrieval_count": 2, "citation_rate": 1.5, "mentions_lancome": true},
+    {"domain": "aufeminin.com", "classification": "UGC", "citation_count": 2, "retrieval_count": 15, "citation_rate": 0.22},
+    {"domain": "vogue.com", "classification": "EDITORIAL", "citation_count": 2, "retrieval_count": 10, "citation_rate": 0.25},
+    {"domain": "sakhiyaskinclinic.com", "classification": "CORPORATE", "citation_count": 2, "retrieval_count": 8, "citation_rate": 0.25},
+    {"domain": "glamourmagazine.co.uk", "classification": "EDITORIAL", "citation_count": 2, "retrieval_count": 6, "citation_rate": 0.4}
+  ]
+}

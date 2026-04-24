@@ -1,0 +1,85 @@
+<!--
+  SAMPLE HTML — representative snippet of a Vogue editorial listicle.
+  Derived from inspection of vogue.co.uk similar pages. Illustrates schema
+  stack: Article + reviewedBy expert + ItemList of Products with reviewBody
+  individual Review entries, but typically no FAQPage block (unlike Healthline).
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>These 11 The Best Anti-Ageing Serums Are Dermatologist Approved For A Reason</title>
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.vogue.co.uk/article/best-anti-ageing-serums">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "These 11 The Best Anti-Ageing Serums Are Dermatologist Approved For A Reason",
+    "author": [
+      {"@type": "Person", "name": "Kiana Murden", "jobTitle": "Senior Beauty Shopping Writer"},
+      {"@type": "Person", "name": "Emily Orofino"}
+    ],
+    "reviewedBy": [
+      {"@type": "Person", "name": "Anetta Reszko", "honorificSuffix": "MD"},
+      {"@type": "Person", "name": "Geeta Yadav", "honorificSuffix": "MD"}
+    ],
+    "publisher": {"@type": "Organization", "name": "Vogue"}
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Beauty"},
+      {"@type": "ListItem", "position": 2, "name": "Skincare"},
+      {"@type": "ListItem", "position": 3, "name": "Best Anti-Ageing Serums"}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Medik8 Crystal Retinal 1 Serum",
+      "brand": "Medik8",
+      "review": {
+        "@type": "Review",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+        "author": {"@type": "Person", "name": "Kiana Murden"},
+        "reviewBody": "Bouncy, smooth, and luminous — no purging or irritation."
+      },
+      "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.7", "reviewCount": 890}
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Paula's Choice 25% Vitamin C + Glutathione Clinical Serum",
+      "brand": "Paula's Choice",
+      "review": {
+        "@type": "Review",
+        "reviewRating": {"@type": "Rating", "ratingValue": "5"},
+        "author": {"@type": "Person", "name": "Emily Orofino"},
+        "reviewBody": "Creamy, citrus-smelling, and satisfying glow within a week."
+      },
+      "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": 440}
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Elemis Pro-Collagen Future Restore Serum",
+      "brand": "Elemis",
+      "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.4", "reviewCount": 520}
+    }
+  ]
+  </script>
+</head>
+<body>
+  <h1>These 11 The Best Anti-Ageing Serums Are Dermatologist Approved For A Reason</h1>
+</body>
+</html>

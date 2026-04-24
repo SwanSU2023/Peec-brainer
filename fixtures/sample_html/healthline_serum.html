@@ -1,0 +1,114 @@
+<!--
+  SAMPLE HTML — representative snippet of a Healthline editorial listicle.
+  Derived from inspection of similar pages on healthline.com. Illustrates
+  the typical schema stack these LLM-cited pages ship: Article/NewsArticle,
+  Organization, BreadcrumbList, ItemList of Products, AggregateRating per
+  product, FAQPage. This is the pattern LLMs find rich enough to cite.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>The Best Anti-Aging Serums, According to Experts</title>
+
+  <meta property="og:title" content="The Best Anti-Aging Serums, According to Experts">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.healthline.com/health/beauty-skin-care/best-anti-aging-serum">
+  <meta property="article:published_time" content="2026-02-15T12:00:00Z">
+  <meta property="article:modified_time" content="2026-04-22T03:37:03Z">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "The Best Anti-Aging Serums, According to Experts",
+    "datePublished": "2026-02-15T12:00:00Z",
+    "dateModified": "2026-04-22T03:37:03Z",
+    "author": {"@type": "Person", "name": "Healthline Editorial Team"},
+    "reviewedBy": [
+      {"@type": "Person", "name": "Jenny Liu", "honorificSuffix": "MD FAAD"},
+      {"@type": "Person", "name": "Adeline Kikam", "honorificSuffix": "DO MS FAAD"}
+    ],
+    "publisher": {"@type": "Organization", "name": "Healthline"}
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Health"},
+      {"@type": "ListItem", "position": 2, "name": "Beauty & Skin Care"},
+      {"@type": "ListItem", "position": 3, "name": "Best Anti-Aging Serums"}
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "Product",
+        "position": 1,
+        "name": "Good Molecules Super Peptide Serum",
+        "brand": "Good Molecules",
+        "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": 320},
+        "offers": {"@type": "Offer", "price": "12.00", "priceCurrency": "USD"}
+      },
+      {
+        "@type": "Product",
+        "position": 2,
+        "name": "Neutrogena Invisible Daily Defense Face Serum SPF 60+",
+        "brand": "Neutrogena",
+        "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.3", "reviewCount": 1150}
+      },
+      {
+        "@type": "Product",
+        "position": 3,
+        "name": "La Roche-Posay Vitamin C12 Serum",
+        "brand": "La Roche-Posay",
+        "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.6", "reviewCount": 2200}
+      },
+      {
+        "@type": "Product",
+        "position": 4,
+        "name": "The Ordinary Retinol 1% in Squalane",
+        "brand": "The Ordinary",
+        "aggregateRating": {"@type": "AggregateRating", "ratingValue": "4.4", "reviewCount": 5800}
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What are the most effective anti-aging serum ingredients?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Retinol, peptides, and antioxidants like vitamin C are the most commonly recommended ingredients by dermatologists."}
+      },
+      {
+        "@type": "Question",
+        "name": "When should I start using an anti-aging serum?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Dermatologists suggest starting an anti-aging routine in your late 20s or early 30s, focusing on retinol and antioxidants."}
+      },
+      {
+        "@type": "Question",
+        "name": "Can I mix retinol with vitamin C?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Use vitamin C in the morning and retinol at night to avoid irritation from concurrent active ingredients."}
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <h1>The Best Anti-Aging Serums, According to Experts</h1>
+  <!-- Rich editorial content with expert reviewers visible in JSON-LD -->
+</body>
+</html>

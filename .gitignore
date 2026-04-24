@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Outputs — we commit *.md and *.json briefs, but not transient CSVs
+# (Exception below: we DO want the demo lancome CSVs committed as proof)
+# outputs/*.tmp
+
+# Secrets — should never be committed
+*.env
+.env.local
+credentials.json
+
+# OS
+Thumbs.db

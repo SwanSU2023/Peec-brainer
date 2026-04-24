@@ -1,0 +1,22 @@
+{
+  "_note": "URLs cited by LLMs on the prompt 'Quel est le meilleur sérum anti-âge en 2026 selon les dermatologues ?' (pr_76152213). Fetched from Peec get_url_report on 2026-04-25, period 30 days.",
+  "prompt_id": "pr_76152213-9386-466a-b782-60cc2d1f8257",
+  "prompt_text": "Quel est le meilleur sérum anti-âge en 2026 selon les dermatologues ?",
+  "lancome_visibility_on_prompt": 0.0,
+  "lancome_equivalent_page": "https://www.lancome.fr/soin/par-categorie/serum-visage/",
+  "pages": [
+    {"url": "https://vogue.fr/beaute/article/meilleurs-serums-anti-age", "classification": "LISTICLE", "title": "Les 13 meilleurs sérums anti-âge 2026 aux actifs cliniquement prouvés", "citation_count": 4, "retrieval_count": 11, "citation_rate": 0.36, "mentions_lancome": true},
+    {"url": "https://today.com/shop/best-anti-aging-serums-rcna173445", "classification": "LISTICLE", "title": "The Best Anti-Aging Serums 2026, Tested and Recommended", "citation_count": 0, "retrieval_count": 9, "citation_rate": 0.0, "mentions_lancome": false},
+    {"url": "https://vogue.co.uk/article/best-anti-ageing-serums", "classification": "LISTICLE", "title": "These 11 The Best Anti-Ageing Serums Are Dermatologist Approved", "citation_count": 7, "retrieval_count": 8, "citation_rate": 0.88, "mentions_lancome": false},
+    {"url": "https://vogue.com/article/best-anti-aging-serums", "classification": "LISTICLE", "title": "The 11 Best Anti-Aging Serums For Smoother, Plumper Skin at Any Age", "citation_count": 2, "retrieval_count": 7, "citation_rate": 0.29, "mentions_lancome": false},
+    {"url": "https://beaute-test.com/mag/classement-2026-les-meilleurs-serums-visage-toutes-categories-tous-besoins-tous-types-de-peau.php", "classification": "LISTICLE", "title": "Classement 2026 : les meilleurs sérums visage toutes catégories", "citation_count": 0, "retrieval_count": 6, "citation_rate": 0.0, "mentions_lancome": false},
+    {"url": "https://avisbeaute.fr/meilleure-creme-anti-rides-selon-les-dermatologues-le-guide-ultime-2026", "classification": "LISTICLE", "title": "Meilleure crème anti-rides selon les dermatologues : Le guide ultime 2026", "citation_count": 0, "retrieval_count": 5, "citation_rate": 0.0, "mentions_lancome": false},
+    {"url": "https://cosmopolitan.fr/j-ai-ete-impressionnee-par-ses-resultats-ce-serum-anti-age-a-ete-elu-meilleur-produit-pharma-2026-et-on-comprend-pourquoi%2C2146991.asp", "classification": "ARTICLE", "title": "Ce sérum élu meilleur produit pharma 2026", "citation_count": 0, "retrieval_count": 5, "citation_rate": 0.0, "mentions_lancome": false},
+    {"url": "https://femina.fr/article/anti-age-meilleurs-serums-anti-rides-pharmacie-2026", "classification": "OTHER", "title": "Anti-âge : meilleurs sérums anti-rides en pharmacie en 2026", "citation_count": 2, "retrieval_count": 5, "citation_rate": 0.4, "mentions_lancome": false},
+    {"url": "https://forbes.com/sites/forbes-personal-shopper/article/best-vitamin-c-serum", "classification": "LISTICLE", "title": "Best Vitamin C Serums 2026 - Forbes Vetted", "citation_count": 4, "retrieval_count": 5, "citation_rate": 0.8, "mentions_lancome": false},
+    {"url": "https://healthline.com/health/beauty-skin-care/best-anti-aging-serum", "classification": "LISTICLE", "title": "The Best Anti-Aging Serums, According to Experts", "citation_count": 5, "retrieval_count": 5, "citation_rate": 1.0, "mentions_lancome": false},
+    {"url": "https://instyle.com/best-anti-aging-serums-8699953", "classification": "LISTICLE", "title": "The 10 Best Anti-Aging Serums of 2026, Tested and Reviewed", "citation_count": 0, "retrieval_count": 5, "citation_rate": 0.0, "mentions_lancome": true},
+    {"url": "https://topsante.com/ce-serum-a-ete-elu-meilleur-produit-pharma-2026-il-sagit-de-la-marque-932575", "classification": "LISTICLE", "title": "Ce sérum a été élu meilleur produit pharma 2026 - Top Santé", "citation_count": 3, "retrieval_count": 5, "citation_rate": 0.6, "mentions_lancome": false},
+    {"url": "https://ma-sante.news/quels-sont-les-serums-anti-rides-les-plus-efficaces", "classification": "LISTICLE", "title": "Quels sont les sérums anti-rides les plus efficaces ?", "citation_count": 11, "retrieval_count": 4, "citation_rate": 2.75, "mentions_lancome": false}
+  ]
+}

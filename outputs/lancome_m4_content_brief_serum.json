@@ -1,0 +1,42 @@
+{
+  "prompt_text": "Quel est le meilleur sérum anti-âge en 2026 selon les dermatologues ?",
+  "page_url": "https://lancome.fr/soin/par-categorie/serum-visage",
+  "page_classification": "CATEGORY_PAGE",
+  "current_visibility_pct": "0%",
+  "expected_topics_count": 6,
+  "covered_topics_count": 0,
+  "coverage_ratio": 0.0,
+  "missing_topics": [
+    "Retinol",
+    "Vitamine C",
+    "Peptides",
+    "Niacinamide",
+    "Acide Hyaluronique",
+    "Acide Glycolique"
+  ],
+  "citation_competitors": [
+    "Neutrogena",
+    "The Ordinary",
+    "La Roche-Posay",
+    "Vichy",
+    "SkinCeuticals",
+    "Dr Dennis Gross",
+    "Paula's Choice",
+    "Pixi"
+  ],
+  "recommended_h2s": [
+    "Retinol",
+    "Vitamine C",
+    "Peptides",
+    "Niacinamide",
+    "Acide Hyaluronique",
+    "Acide Glycolique"
+  ],
+  "diagnosis": "La page n'a que 0 H2 — les LLMs privilégient les pages structurées avec 5-10+ sections claires. Couverture thématique très faible (0%) : la page ne traite pas les sujets que les LLMs attendent sur cette requête. Zéro mention de la marque détectée sur les chats analysés.",
+  "action_items": [
+    "Ajouter des sections pour les 6 sujets manquants identifiés (voir 'Recommended H2 sections').",
+    "Étudier la structure des pages concurrentes citées par les LLMs (Neutrogena, The Ordinary, La Roche-Posay) : quelle profondeur de contenu, quelles citations externes, quelle structure H2/H3.",
+    "Citer 2-3 autorités externes (études, dermatologues, presse spécialisée) dans le corps du contenu — les LLMs préfèrent les sources qui citent elles-mêmes.",
+    "Nommer explicitement les ingrédients actifs et leurs bénéfices dans les premiers paragraphes — pas seulement dans les fiches produit."
+  ]
+}

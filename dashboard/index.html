@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Peec Brain — AI Visibility OS for SEO Agencies</title>
+  <meta name="description" content="Peec Brain — Stride Up submission for the Peec MCP Challenge. Three modules that solve the three hardest questions SEO teams face with LLMs." />
+  <style>
+    :root {
+      --navy: #1F2A44;
+      --blue: #2E75B6;
+      --light-blue: #D5E8F0;
+      --grey: #F2F2F2;
+      --border: #E5E5E5;
+      --text: #1F2A44;
+      --muted: #6b7280;
+      --success: #1F7A1F;
+      --warn: #B4690E;
+      --danger: #C00000;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text);
+      background: #fafbfc;
+      line-height: 1.5;
+    }
+    header {
+      background: var(--navy);
+      color: white;
+      padding: 24px 32px;
+    }
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .brand span {
+      color: var(--light-blue);
+      font-weight: 400;
+    }
+    .tagline {
+      color: var(--light-blue);
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    .hashtag {
+      color: white;
+      background: rgba(255,255,255,0.12);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    .hero {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      margin: 0 0 12px;
+      font-size: 26px;
+      color: var(--navy);
+    }
+    .hero p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .pillar {
+      background: var(--grey);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13px;
+    }
+    .pillar b { color: var(--navy); display: block; margin-bottom: 2px; font-size: 14px; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+    .stat {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--navy);
+      line-height: 1.1;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .stat-sub {
+      font-size: 12px;
+      color: var(--blue);
+      margin-top: 6px;
+      font-weight: 500;
+    }
+    .tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 24px;
+      overflow-x: auto;
+    }
+    .tab {
+      padding: 12px 20px;
+      cursor: pointer;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 14px;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      font-family: inherit;
+    }
+    .tab:hover { color: var(--navy); }
+    .tab.active {
+      color: var(--navy);
+      border-bottom-color: var(--blue);
+    }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .section-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    .section-title h2 {
+      margin: 0;
+      font-size: 20px;
+      color: var(--navy);
+    }
+    .section-title .meta {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 14px;
+    }
+    th {
+      background: var(--grey);
+      text-align: left;
+      padding: 12px 14px;
+      font-weight: 600;
+      color: var(--navy);
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+    }
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #fafafa; }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+    .badge-new { background: #DFF5E1; color: var(--success); }
+    .badge-existing { background: var(--light-blue); color: var(--navy); }
+    .badge-zero { background: #FBE4E4; color: var(--danger); }
+    .badge-low { background: #FFF1DB; color: var(--warn); }
+    .badge-high { background: #DFF5E1; color: var(--success); }
+    .badge-commercial { background: #FDE4F1; color: #9B1C6C; }
+    .badge-branded { background: var(--light-blue); color: var(--navy); }
+    .badge-informational { background: #EAE8FA; color: #5949AD; }
+    .badge-comparison { background: #FCE9D4; color: #9B5A1C; }
+    .url-cell {
+      font-family: "SF Mono", Consolas, monospace;
+      font-size: 12px;
+      color: var(--blue);
+      word-break: break-all;
+    }
+    .url-cell a { color: var(--blue); text-decoration: none; }
+    .url-cell a:hover { text-decoration: underline; }
+    .brief-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 28px;
+    }
+    .brief-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 16px 0 24px;
+      padding: 16px;
+      background: var(--grey);
+      border-radius: 8px;
+    }
+    .brief-meta b { display: block; color: var(--muted); font-weight: 500; font-size: 12px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.3px; }
+    .brief-meta span { color: var(--navy); font-weight: 600; font-size: 15px; }
+    .brief-section { margin-bottom: 24px; }
+    .brief-section h3 {
+      font-size: 16px;
+      color: var(--navy);
+      margin: 0 0 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .topic-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .topic-pill {
+      background: #FBE4E4;
+      color: var(--danger);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .topic-pill.covered {
+      background: #DFF5E1;
+      color: var(--success);
+    }
+    .comp-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .comp-chip {
+      background: var(--light-blue);
+      color: var(--navy);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .action-list {
+      background: var(--grey);
+      border-left: 4px solid var(--blue);
+      padding: 16px 20px;
+      border-radius: 4px;
+      margin: 0;
+      list-style-position: inside;
+    }
+    .action-list li { margin-bottom: 8px; }
+    .action-list li:last-child { margin-bottom: 0; }
+    .diagnosis {
+      background: #FFF9E6;
+      border-left: 4px solid var(--warn);
+      padding: 14px 18px;
+      border-radius: 4px;
+      color: var(--text);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .kw-hover {
+      display: inline-block;
+      background: var(--grey);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-size: 12px;
+      color: var(--muted);
+      margin-left: 6px;
+    }
+    .filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--muted);
+      font-family: inherit;
+    }
+    .filter-btn.active {
+      background: var(--navy);
+      color: white;
+      border-color: var(--navy);
+    }
+    @media (max-width: 720px) {
+      main { padding: 16px; }
+      .hero { padding: 20px; }
+      header { padding: 20px 16px; }
+      .brand { font-size: 18px; }
+      td, th { padding: 8px 10px; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-row">
+    <div>
+      <div class="brand">Peec Brain <span>— AI Visibility OS</span></div>
+      <div class="tagline">Pour agences SEO gérant des portefeuilles de marques sur les LLMs</div>
+    </div>
+    <div class="hashtag">#BuiltWithPeec</div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Un workflow qui répond aux 3 questions que se pose toute équipe SEO face aux LLMs</h1>
+    <p>Stride Up pilote 40+ comptes Peec AI pour des marques comme Lancôme, Kerastâse, FnacDarty, Audi, L'Oréal Professionnel. Chaque lundi, nos équipes se posent les mêmes questions : quels prompts tracker, quelles pages optimiser, quels sites contacter pour gagner en visibilité dans les réponses AI. Peec Brain y répond via un plugin de 4 skills orchestrées sur le MCP Peec.</p>
+    <div class="pillars">
+      <div class="pillar">
+        <b>Module 1 — Prompt Discovery</b>
+        Génère automatiquement les prompts Peec depuis les top keywords Ahrefs (+ GSC quand dispo).
+      </div>
+      <div class="pillar">
+        <b>Module 2 — Gap Analyzer</b>
+        Croise Peec × Ahrefs → 3 listes : pages à optimiser, sites pour Digital PR, pages concurrentes gagnantes.
+      </div>
+      <div class="pillar">
+        <b>Module 3 — Artifact Cowork</b>
+        Vous êtes dessus — dashboard rafraîchissable, utilisable en livrable client white-label.
+      </div>
+      <div class="pillar">
+        <b>Module 4 — Explain Why ⭐</b>
+        Pour chaque prompt raté, le pourquoi exact (topics LLM attendus vs couverture page) et le brief AI-ready.
+      </div>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stat">
+      <div class="stat-value">Lancôme</div>
+      <div class="stat-label">Client démo vitrine</div>
+      <div class="stat-sub">57 prompts · 123 brands trackés · 1 topic</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">42 %</div>
+      <div class="stat-label">AI visibility globale Lancôme</div>
+      <div class="stat-sub">169 mentions sur 399 chats (7j)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">29 %</div>
+      <div class="stat-label">Share of Voice marché</div>
+      <div class="stat-sub">#1 devant Estée Lauder (6%)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">20</div>
+      <div class="stat-label">Prompts à 0 % visibility</div>
+      <div class="stat-sub">Peec Brain identifie pourquoi</div>
+    </div>
+  </section>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="m1">Module 1 — Prompt Discovery</button>
+    <button class="tab" data-tab="m2">Module 2 — Content Gaps</button>
+    <button class="tab" data-tab="m4">Module 4 — Explain Why</button>
+    <button class="tab" data-tab="m0">Vue d'ensemble</button>
+  </div>
+
+  <section id="m1" class="panel active">
+    <div class="section-title">
+      <h2>Prompts proposés par le Discovery Engine</h2>
+      <div class="meta">Lancôme · 22 prompts · 6 topics à créer · dry-run</div>
+    </div>
+    <div class="filters" id="m1-filters">
+      <button class="filter-btn active" data-filter="all">Tous les topics</button>
+    </div>
+    <table id="m1-table">
+      <thead>
+        <tr>
+          <th>Prompt proposé</th>
+          <th>Topic</th>
+          <th>Intent</th>
+          <th>Source keyword(s)</th>
+          <th>Priorité</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="m2" class="panel">
+    <div class="section-title">
+      <h2>Pages à optimiser pour l'AI visibility</h2>
+      <div class="meta">Priorité = trafic × (1 − visibility)</div>
+    </div>
+    <table id="m2-table">
+      <thead>
+        <tr>
+          <th>Prompt</th>
+          <th>Visibility</th>
+          <th>Page cible</th>
+          <th>Action</th>
+          <th>Priorité</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section id="m4" class="panel">
+    <div class="section-title">
+      <h2>Content Brief — Explain Why</h2>
+      <div class="meta">Pourquoi ChatGPT ne cite pas Lancôme sur ce prompt, et comment le corriger</div>
+    </div>
+    <div id="m4-content" class="brief-card"></div>
+  </section>
+
+  <section id="m0" class="panel">
+    <div class="section-title">
+      <h2>Vue d'ensemble</h2>
+      <div class="meta">Récap du pipeline sur Lancôme</div>
+    </div>
+    <div class="brief-card">
+      <h3>Le workflow Peec Brain en une semaine d'agence</h3>
+      <p><b>Lundi matin.</b> On lance Peec Brain sur un compte client (ici Lancôme). Module 1 analyse les prompts existants, croise avec Ahrefs + GSC, et propose 22 nouveaux prompts répartis sur 6 topics (Parfums, Maquillage Yeux/Teint, Soins Sérums/Crèmes/Diagnostic). Après review, on les crée dans Peec.</p>
+      <p><b>Lundi après-midi.</b> Module 2 croise les données Peec avec les top pages Ahrefs. Il identifie 20 opportunités : pages Lancôme à fort trafic mais peu citées par les LLMs. La page "routine skincare parfaite" ressort en #1 : 1169 visites/mois, 0% visibility sur 5 prompts.</p>
+      <p><b>Mardi.</b> Module 4 explique <em>pourquoi</em>. Sur le prompt "Quel est le meilleur sérum anti-âge en 2026 selon les dermatologues ?", ChatGPT attend 6 sections par ingrédient actif. La page Lancôme cible a 0 H2 et 0/6 coverage. Peec Brain génère le brief AI-ready avec les 6 H2 recommandés et les 4 action items concrets.</p>
+      <p><b>Mercredi à vendredi.</b> Le brief part en production contenu. L'artifact Cowork (cette page) suit l'évolution semaine par semaine.</p>
+      <p><b>Vendredi suivant.</b> On rafraîchit, on mesure l'évolution de visibility, on priorise le prochain batch.</p>
+
+      <h3 style="margin-top: 28px;">Architecture</h3>
+      <p>4 skills empaquetées dans un plugin Cowork <code>peec-brain</code>, installable en une commande par n'importe quel utilisateur Peec + Cowork :</p>
+      <ul>
+        <li><code>peec-prompt-discovery</code> — le "bootstrap" d'un compte client</li>
+        <li><code>peec-gap-analyzer</code> — la revue hebdo des opportunités</li>
+        <li><code>peec-explain-why</code> — le brief par prompt raté</li>
+        <li><code>peec-brain</code> — l'orchestrateur (modes onboarding / weekly / adhoc)</li>
+      </ul>
+      <p>Tous consomment le Peec MCP server. Les scripts Python sont publics sur <a href="#">github.com/.../peec-brain</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>
+    Peec Brain — submission Stride Up pour le
+    <a href="https://peec.ai" target="_blank" rel="noopener">Peec MCP Challenge</a>
+    · #BuiltWithPeec
+  </p>
+</footer>
+
+<script>
+// ---------- Tab switching ----------
+document.querySelectorAll('.tab').forEach(t => {
+  t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.tab).classList.add('active');
+  });
+});
+
+// ---------- Data ----------
+const M1 = {{ M1_JSON }};
+const M2 = {{ M2_JSON }};
+const M4 = {{ M4_JSON }};
+
+// ---------- M1 render ----------
+function intentBadge(intent) {
+  return `<span class="badge badge-${intent}">${intent}</span>`;
+}
+function topicFilters() {
+  const container = document.getElementById('m1-filters');
+  const topics = [...new Set(M1.map(r => r.topic_suggested))].sort();
+  for (const t of topics) {
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.filter = t;
+    btn.textContent = t;
+    container.appendChild(btn);
+  }
+  container.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      container.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderM1(btn.dataset.filter);
+    });
+  });
+}
+function renderM1(filter = 'all') {
+  const tbody = document.querySelector('#m1-table tbody');
+  tbody.innerHTML = '';
+  const rows = filter === 'all' ? M1 : M1.filter(r => r.topic_suggested === filter);
+  for (const r of rows) {
+    const tr = document.createElement('tr');
+    const newBadge = r.topic_existing_id ? '<span class="badge badge-existing">existing</span>' : '<span class="badge badge-new">new topic</span>';
+    tr.innerHTML = `
+      <td><b>${r.question}</b></td>
+      <td>${r.topic_suggested} ${newBadge}</td>
+      <td>${intentBadge(r.intent)}</td>
+      <td style="font-size:12px;color:var(--muted)">${r.source_keyword}</td>
+      <td style="text-align:right;font-weight:600">${Math.round(r.priority_score).toLocaleString('fr-FR')}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+// ---------- M2 render ----------
+function visibilityBadge(v) {
+  const pct = Math.round(v * 100);
+  if (v === 0) return `<span class="badge badge-zero">${pct}%</span>`;
+  if (v < 0.3) return `<span class="badge badge-low">${pct}%</span>`;
+  return `<span class="badge badge-high">${pct}%</span>`;
+}
+function renderM2() {
+  const tbody = document.querySelector('#m2-table tbody');
+  tbody.innerHTML = '';
+  for (const r of M2) {
+    const tr = document.createElement('tr');
+    const urlCell = r.suggested_url === '(à créer)'
+      ? '<span style="color:var(--warn);font-style:italic">page à créer</span>'
+      : `<span class="url-cell"><a href="${r.suggested_url}" target="_blank">${r.suggested_url.replace('https://www.lancome.fr','…')}</a></span>`;
+    tr.innerHTML = `
+      <td><div style="max-width:380px">${r.prompt_text}</div></td>
+      <td>${visibilityBadge(r.visibility)}</td>
+      <td>${urlCell}<div style="font-size:12px;color:var(--muted);margin-top:4px">${r.suggested_url_top_keyword || ''}</div></td>
+      <td style="font-size:13px">${r.suggested_action}</td>
+      <td style="text-align:right;font-weight:600">${Math.round(r.priority_score).toLocaleString('fr-FR')}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+// ---------- M4 render ----------
+function renderM4() {
+  const c = document.getElementById('m4-content');
+  c.innerHTML = `
+    <h3 style="margin-top:0">${M4.prompt_text}</h3>
+    <div class="brief-meta">
+      <div><b>Page cible</b><span class="url-cell"><a href="${M4.page_url}" target="_blank">${M4.page_url.replace('https://','')}</a></span></div>
+      <div><b>Classification</b><span>${M4.page_classification}</span></div>
+      <div><b>Visibility actuelle</b><span>${M4.current_visibility_pct}</span></div>
+      <div><b>Couverture topics</b><span>${M4.covered_topics_count}/${M4.expected_topics_count} (${Math.round(M4.coverage_ratio * 100)}%)</span></div>
+    </div>
+
+    <div class="brief-section">
+      <h3>Diagnostic</h3>
+      <div class="diagnosis">${M4.diagnosis}</div>
+    </div>
+
+    <div class="brief-section">
+      <h3>Topics attendus par les LLMs (non couverts)</h3>
+      <div class="topic-pills">
+        ${M4.missing_topics.map(t => `<span class="topic-pill">${t}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="brief-section">
+      <h3>Marques citées par ChatGPT sur ce prompt</h3>
+      <div class="comp-list">
+        ${M4.citation_competitors.map(c => `<span class="comp-chip">${c}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="brief-section">
+      <h3>Sections H2 recommandées pour la page cible</h3>
+      <ul>
+        ${M4.recommended_h2s.map(h => `<li><b>${h}</b></li>`).join('')}
+      </ul>
+    </div>
+
+    <div class="brief-section">
+      <h3>Actions</h3>
+      <ol class="action-list">
+        ${M4.action_items.map(a => `<li>${a}</li>`).join('')}
+      </ol>
+    </div>
+  `;
+}
+
+topicFilters();
+renderM1();
+renderM2();
+renderM4();
+</script>
+</body>
+</html>

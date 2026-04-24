@@ -1,0 +1,25 @@
+{
+  "url": "https://vogue.co.uk/article/best-anti-ageing-serums",
+  "title": "These 11 The Best Anti-Ageing Serums Are Dermatologist Approved For A Reason",
+  "domain": "vogue.co.uk",
+  "classification": "EDITORIAL",
+  "url_classification": "LISTICLE",
+  "citation_count": 7,
+  "retrieval_count": 8,
+  "citation_rate": 0.88,
+  "mentions_lancome": false,
+  "content_excerpt_3000": "While most of us don't want to stop ageing altogether, it might be true that we'd like to slow or certainly soften the effects of time on our skin.\n\n## _Vogue_'s pick of the best anti-ageing serums at a glance:\n\nBest retinoid serum - Medik8 Crystal Retinal 1 Serum\nBest serum for wrinkles - Skinceuticals P-TIOX Anti-Wrinkle Peptide Serum\nBest brightening serum - Paula's Choice 25% Vitamin C + Glutathione Clinical Serum\n\n\"When it comes to anti-ageing serums, it's all about choosing ingredients that work smarter for your skin,\" says dermatologist Dr [Anetta Reszko]. \"The key is tailoring ingredients to your skin's tolerance and introducing actives gradually.\"\n\nTo help you narrow down your search for the best anti-ageing serum, we spoke to two dermatologists about what to look for in an anti-ageing serum.\n\nIn this article:\n- [Jump to the products]\n- [What do dermatologists recommend for ageing skin?]\n- [Ingredients to look for in anti-ageing serums]\n- [When should you start using an anti-aging serum?]\n- [How we tested]\n- [Meet the experts]\n\n## How we tested the best anti-ageing serums\n\nWhen we test and review a product, we take a holistic approach.\n\n**Best retinoid serum:** Medik8 Crystal Retinal 1 Serum\n- **Why it's _Vogue_-approved:** Any dermatologist will tell you that retinoids are a staple of a solid anti-ageing routine\n- **Editor's experience**: \"I recommend this to anyone who asks me which retinoid to try.\"\n- **Key ingredients:** 0.01% retinal, squalane, sodium hyaluronate\n- **Best for:** Fine lines, wrinkles, uneven texture and tone\n\n**Best brightening serum:** Paula's Choice 25% Vitamin C + Glutathione Clinical Serum\n- **Why it's _Vogue_-approved:** Vitamin C is one of the most frequently recommended antioxidants\n- **Editor's experience:** \"Until trying this formula, I'd avoided vitamin C serums\"\n- **Key ingredients:** Vitamin C (tetrahexyldecyl ascorbate), glutathione, ergothioneine\n- **Best for:** Dullness, uneven tone, discolouration, dryness\n\n**Best hydrating serum:** Elemis Pro-Collagen Future Restore Serum\n- **Key ingredients:** Microalgae, collagen amino acids, squalane\n- **Best for:** Fine lines, wrinkles, skin laxity, dry skin\n\n**Best firming serum:** Chanel Le Lift Sérum\n- **Key ingredients:** Peptides, peppermint, alfalfa\n- **Best for:** Skin laxity, dullness\n\n(8 more product blocks following the same structure...)",
+  "content_length": 24961,
+  "editorial_signals": {
+    "h2_count_observed": 11,
+    "product_blocks_with_ingredients": 11,
+    "standardized_per_product_sections": ["Why it's Vogue-approved", "Editor's experience", "Key ingredients", "Best for"],
+    "ingredient_mentions": ["retinal", "retinol", "vitamin C", "glutathione", "peptides", "hyaluronic acid", "squalane", "niacinamide", "tetrahexyldecyl ascorbate", "ceramides", "microalgae", "collagen"],
+    "expert_quotes": 2,
+    "expert_names": ["Dr Anetta Reszko", "Dr Geeta Yadav"],
+    "comparison_tables": 0,
+    "TOC_or_jump_to": true,
+    "how_we_tested_section": true,
+    "meet_the_experts_section": true
+  }
+}

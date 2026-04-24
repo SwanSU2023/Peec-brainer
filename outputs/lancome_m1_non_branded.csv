@@ -1,0 +1,7 @@
+question,source_keyword,volume,traffic,intent,branded,topic_suggested,topic_existing_id,is_duplicate,duplicate_of,priority_score
+Quel est le meilleur parfum femme longue tenue en 2026 ?,meilleur parfum femme longue tenue,2500,0,commercial,non_branded,Parfums,,False,,3000.0
+Qu'est-ce qu'un bon smoky eyes en 2026 ?,smoky eyes,3700,1357,informational,non_branded,Maquillage – Yeux,,False,,1221.3
+Quel est le meilleur fond de teint anti-âge en 2026 ?,meilleur fond de teint anti-âge,900,0,commercial,non_branded,Maquillage – Teint,,False,,1080.0
+Comment bien choisir son mascara ?,comment bien choisir son mascara,900,0,informational,non_branded,Maquillage – Yeux,,False,,810.0
+Qu'est-ce qu'un bon skincare routine en 2026 ?,skincare routine,2000,476,informational,non_branded,Soins – Diagnostic,,False,,428.4
+Qu'est-ce qu'un bon diagnostic peau visage en 2026 ?,diagnostic peau visage,1600,468,informational,non_branded,Soins – Diagnostic,,False,,421.2

@@ -1,0 +1,23 @@
+question,source_keyword,volume,traffic,intent,branded,topic_suggested,topic_existing_id,is_duplicate,duplicate_of,priority_score
+Que vaut le parfum La Vie Est Belle de Lancôme en 2026 ?,la vie est belle + la vie est belle parfum + parfum la vie est belle + parfum la vie est belle vs idole + la vie est belle lancome + la vie est belle vanille + lancome la vie est belle,111117,19096,informational,branded,Parfums,,False,,17497.0
+Quel est le meilleur parfum femme longue tenue en 2026 ?,meilleur parfum femme longue tenue,2500,0,commercial,non_branded,Parfums,,False,,3000.0
+Que vaut le parfum La Nuit Trésor de Lancôme en 2026 ?,la nuit tresor lancome + la nuit tresor,4800,2785,branded,branded,Parfums,,False,,2107.1000000000004
+Que vaut le parfum Idôle de Lancôme en 2026 ?,idole lancome + parfum idole lancome + lancome idole,6800,2621,branded,branded,Parfums,,False,,1834.7
+Qu'est-ce qu'un bon smoky eyes en 2026 ?,smoky eyes,3700,1357,informational,non_branded,Maquillage – Yeux,,False,,1221.3
+Quel est le meilleur fond de teint anti-âge en 2026 ?,meilleur fond de teint anti-âge,900,0,commercial,non_branded,Maquillage – Teint,,False,,1080.0
+Que vaut le parfum Trésor de Lancôme en 2026 ?,tresor lancome + tresor de lancome,3600,1498,branded,branded,Parfums,,False,,1048.6
+Que vaut le mascara Lancôme en 2026 ?,mascara lancome,21606,1423,branded,branded,Maquillage – Yeux,,False,,996.1
+Comment bien choisir son mascara ?,comment bien choisir son mascara,900,0,informational,non_branded,Maquillage – Yeux,,False,,810.0
+Que vaut le parfum Lancôme en 2026 ?,parfum lancome,2100,913,branded,branded,Parfums,,False,,639.1
+Que vaut le parfum Lancôme femme en 2026 ?,parfum lancome femme,1600,824,branded,branded,Parfums,,False,,576.8
+Que vaut le parfum Ô de Lancôme de Lancôme en 2026 ?,o de lancome,800,633,branded,branded,Parfums,,False,,443.1
+Qu'est-ce qu'un bon skincare routine en 2026 ?,skincare routine,2000,476,informational,non_branded,Soins – Diagnostic,,False,,428.4
+Que vaut le crème anti-âge Rénergie de Lancôme en 2026 ?,lancome renergie,1300,611,branded,branded,Soins – Crèmes,,False,,427.7
+Qu'est-ce qu'un bon diagnostic peau visage en 2026 ?,diagnostic peau visage,1600,468,informational,non_branded,Soins – Diagnostic,,False,,421.2
+Que vaut le Lancôme parfum en 2026 ?,lancome parfum,3200,566,branded,branded,Parfums,,False,,396.2
+Que vaut le serum Lancôme en 2026 ?,serum lancome,1100,498,branded,branded,Soins – Sérums,,False,,348.6
+Que vaut le fond de teint Lancôme en 2026 ?,fond de teint lancome,1000,483,branded,branded,Maquillage – Teint,,False,,338.1
+Que vaut le sérum Advanced Génifique de Lancôme en 2026 ?,lancome genifique,600,473,branded,branded,Soins – Sérums,,False,,331.1
+Que vaut le creme Lancôme en 2026 ?,creme lancome,1000,433,branded,branded,Soins – Crèmes,,False,,303.1
+Que vaut le Lancôme mascara en 2026 ?,lancome mascara,1000,420,branded,branded,Maquillage – Yeux,,False,,294.0
+Que vaut le parfum Hypnôse de Lancôme en 2026 ?,hypnose lancome,1600,394,branded,branded,Parfums,,False,,275.8

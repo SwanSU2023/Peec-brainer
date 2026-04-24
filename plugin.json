@@ -1,0 +1,60 @@
+{
+  "name": "peec-brain",
+  "version": "1.0.0",
+  "description": "From LLM signal to executable actions. Four Cowork skills over the Peec MCP server that answer the four hardest questions LLM-era SEO teams face: which prompts to track, which pages to optimize, why my page isn't cited when competitors' pages are, and who cites competitors and not me. Built for the April 2026 Peec MCP Challenge by Stride Up.",
+  "author": "Stride Up <seo@stride-up.fr>",
+  "license": "MIT",
+  "homepage": "https://github.com/SwanSU2023/peec-brain",
+  "keywords": [
+    "peec-ai",
+    "ai-search",
+    "llm-visibility",
+    "seo",
+    "generative-engine-optimization",
+    "geo",
+    "schema-org",
+    "structured-data",
+    "mcp",
+    "cowork"
+  ],
+  "mcp_requirements": [
+    "peec-ai",
+    "ahrefs"
+  ],
+  "submission_categories": [
+    "Content Optimization",
+    "Competitive Analysis"
+  ],
+  "skills": [
+    {
+      "name": "peec-brain",
+      "description": "Orchestrator — runs Modules 1 → 4 in onboarding / weekly / adhoc modes.",
+      "path": "skills/peec-brain"
+    },
+    {
+      "name": "peec-prompt-discovery",
+      "description": "Module 1 — Fusion GSC + Ahrefs + product catalog → Peec prompts. Only tool combining all three sources.",
+      "path": "skills/peec-prompt-discovery"
+    },
+    {
+      "name": "peec-gap-analyzer",
+      "description": "Module 2 — Traffic-first content gap prioritization. Ahrefs top-page traffic × (1 − AI visibility).",
+      "path": "skills/peec-gap-analyzer"
+    },
+    {
+      "name": "peec-structural-audit",
+      "description": "Module 3 — Why your page isn't cited. Editorial (headings, ingredients, experts, tables) + schema.org (Product, AggregateRating, FAQPage, Review) diff.",
+      "path": "skills/peec-structural-audit"
+    },
+    {
+      "name": "peec-citation-authority",
+      "description": "Module 4 — Domains citing competitors but never you, enriched with Ahrefs DR and typology. Outreach-ready CSV for PR teams.",
+      "path": "skills/peec-citation-authority"
+    },
+    {
+      "name": "peec-radar-artifact",
+      "description": "Optional — refreshable Cowork artifact consolidating Modules 2-4 outputs into a client-facing dashboard.",
+      "path": "skills/peec-radar-artifact"
+    }
+  ]
+}

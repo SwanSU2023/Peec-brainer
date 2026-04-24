@@ -1,0 +1,15 @@
+{
+  "_note": "Ahrefs site-explorer-domain-rating for domains cited on prompt pr_76152213 (sérum anti-âge). Fetched 2026-04-25.",
+  "date": "2026-04-23",
+  "ratings": [
+    {"domain": "vogue.fr", "domain_rating": 82, "ahrefs_rank": 9127},
+    {"domain": "healthline.com", "domain_rating": 92, "ahrefs_rank": 262},
+    {"domain": "forbes.com", "domain_rating": 94, "ahrefs_rank": 93},
+    {"domain": "ma-sante.news", "domain_rating": 50, "ahrefs_rank": 670220},
+    {"domain": "topsante.com", "domain_rating": 77, "ahrefs_rank": 21524},
+    {"domain": "vogue.co.uk", "domain_rating": 87, "ahrefs_rank": 3382},
+    {"domain": "nymag.com", "domain_rating": 90, "ahrefs_rank": 1691},
+    {"domain": "today.com", "domain_rating": 90, "ahrefs_rank": 1206},
+    {"domain": "cosmopolitan.com", "domain_rating": 89, "ahrefs_rank": 1961}
+  ]
+}
