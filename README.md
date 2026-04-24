@@ -231,17 +231,6 @@ open dashboard/dist/index.html
 
 ---
 
-## Stands on the shoulders of
-
-- [rebelytics/peec-ai-mcp](https://github.com/rebelytics/peec-ai-mcp) — the de-facto reference guide for how the Peec MCP actually behaves; we used its documentation of the orthogonal brand/prompt/topic/tag data model to simplify our skill design.
-- [rebelytics/peec-ai-tracking-strategy-builder](https://github.com/rebelytics/peec-ai-tracking-strategy-builder) — methodology for structuring what a brand should track.
-- [lukONINO/peec-mcp-playbook](https://github.com/lukONINO/peec-mcp-playbook) — efficiency patterns for running the Peec MCP inside agent sessions.
-- [alexgum1/gsc2peecai](https://github.com/alexgum1/gsc2peecai) — pioneered the GSC → Peec prompt ingestion pattern that Module 1 extends with Ahrefs rank data and product catalogs.
-
-Peec Brain sits *on top* of these fondations, not in competition with them. We ship the execution layer.
-
----
-
 ## Repo structure
 
 ```
