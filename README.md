@@ -14,10 +14,10 @@ Stride Up pilots 40+ Peec AI accounts (Lancôme, Kérastase, FnacDarty, Audi, L'
 |---|---|---|
 | 1 | What should I track in Peec? | **Module 1 — Prompt Discovery** |
 | 2 | Which of my pages are invisible in LLMs — and are they worth saving? | **Module 2 — Content Gap** |
-| 3 | Why isn't my page cited when my competitors' pages are? | **Module 3 — Structural Audit** ⭐ |
-| 4 | Who cites my competitors and not me — and how do I reach them? | **Module 4 — Citation Authority** ⭐ |
+| 3 | Why isn't my page cited when my competitors' pages are? | **Module 3 — Structural Audit** |
+| 4 | Who cites my competitors and not me — and how do I reach them? | **Module 4 — Citation Authority** |
 
-Validated on real French brand data, with every output below generated from live Peec + Ahrefs MCP calls.
+Validated on French brand data, with every output below generated from live Peec + Ahrefs MCP calls.
 
 ---
 
