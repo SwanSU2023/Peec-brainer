@@ -203,7 +203,7 @@ The four modules are packaged as a [Cowork plugin](plugin.json) of five skills (
 ## Quick start
 
 ```bash
-git clone https://github.com/SwanSU2023/peec-brain
+git clone https://github.com/SwanSU2023/Peec-brainer
 cd peec-brain
 
 pip install extruct requests  # for Layer B of Module 3

@@ -36,7 +36,7 @@ except ImportError:
     sys.exit(2)
 
 
-DEFAULT_UA = "Mozilla/5.0 (compatible; PeecBrainAudit/0.1; +https://github.com/SwanSU2023/peec-brain)"
+DEFAULT_UA = "Mozilla/5.0 (compatible; PeecBrainAudit/0.1; +https://github.com/SwanSU2023/Peec-brainer)"
 
 
 def fetch_html(url: str, timeout: int = 20) -> tuple[str, int]:

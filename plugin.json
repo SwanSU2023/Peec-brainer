@@ -4,7 +4,7 @@
   "description": "From LLM signal to executable actions. Four Cowork skills over the Peec MCP server that answer the four hardest questions LLM-era SEO teams face: which prompts to track, which pages to optimize, why my page isn't cited when competitors' pages are, and who cites competitors and not me. Built for the April 2026 Peec MCP Challenge by Stride Up.",
   "author": "Stride Up <seo@stride-up.fr>",
   "license": "MIT",
-  "homepage": "https://github.com/SwanSU2023/peec-brain",
+  "homepage": "https://github.com/SwanSU2023/Peec-brainer",
   "keywords": [
     "peec-ai",
     "ai-search",
