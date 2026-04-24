@@ -93,7 +93,7 @@ def main(include_branded: bool = False) -> int:
     for g in gaps:
         by_type[g.page_type] = by_type.get(g.page_type, 0) + 1
 
-    print(f"Lancome — Module 2 Content Gaps (§2ter enriched)")
+    print(f"Lancome — Module 2 Content Gaps (traffic-first, non-branded enriched)")
     print(f"  Mode                         : {'ALL (include_branded=True)' if include_branded else 'NON-BRANDED (default)'}")
     print(f"  Prompts low-visibility total : {total_low}")
     print(f"  Prompts low-vis + non-branded: {total_nb}")
@@ -101,7 +101,7 @@ def main(include_branded: bool = False) -> int:
     print(f"  Content gaps identified      : {len(gaps)}")
     print(f"  By page type                 : {by_type}")
     print()
-    print(f"Top 10 pages to optimize (priority = traffic × (1 - visibility)) :")
+    print(f"Top 10 pages to optimize (priority = traffic × (1 - visibility)):")
     print("-" * 100)
     for g in gaps[:10]:
         print(f"  #{g.rank:<2} [{g.visibility_pct:>3}] priority {g.priority_score:>9.0f}  [{g.page_type:>10}]")

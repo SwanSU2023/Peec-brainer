@@ -117,14 +117,14 @@ def _decide_action(
 ) -> str:
     """Suggest an SEO action based on visibility + match quality."""
     if not has_matching_page:
-        return "Créer une page dédiée (aucune page existante ne couvre ce prompt)"
+        return "Create a dedicated page (no existing page covers this prompt)"
     if visibility == 0.0:
-        return "Optimiser pour l'AI visibility : FAQ, structure H2/H3 claire, citations externes"
+        return "Optimize for AI visibility: FAQ block, clear H2/H3 structure, external citations"
     if visibility < 0.3:
-        return "Renforcer le contenu : ajouter des sections spécifiques au prompt, autorités citées"
+        return "Strengthen content: add prompt-specific sections and cited authorities"
     if visibility < 0.5:
-        return "Ajustements de structure : listes, citations, data points explicites"
-    return "Monitoring — page déjà citée, pas d'action urgente"
+        return "Structural adjustments: bulleted lists, quoted sources, explicit data points"
+    return "Monitor — page is already cited, no urgent action"
 
 
 # §2ter — URL-based page-type classification.

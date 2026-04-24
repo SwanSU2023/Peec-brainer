@@ -88,19 +88,19 @@ def main() -> int:
         by_topic_br[c.topic_suggested] = by_topic_br.get(c.topic_suggested, 0) + 1
 
     print(f"Module 1 — Lancôme — Run {__import__('datetime').date.today().isoformat()}")
-    print(f"├── {len(candidates)} prompts générés au total")
-    print(f"├── {len(branded)} branded (backlog, push via --include-branded)")
+    print(f"├── {len(candidates)} prompts generated in total")
+    print(f"├── {len(branded)} branded (backlog, push with --include-branded)")
     for c in branded[:8]:
         print(f"│   - \"{c.question}\"")
     if len(branded) > 8:
         print(f"│   ... (+{len(branded) - 8} more)")
-    print(f"├── {len(non_branded)} non-branded (à pousser en priorité)")
+    print(f"├── {len(non_branded)} non-branded (priority push)")
     for c in non_branded[:8]:
         print(f"│   - \"{c.question}\"")
     if len(non_branded) > 8:
         print(f"│   ... (+{len(non_branded) - 8} more)")
     topics_needed = sorted({c.topic_suggested for c in candidates if not c.topic_existing_id})
-    print(f"└── {len(topics_needed)} topics à créer : {', '.join(topics_needed)}")
+    print(f"└── {len(topics_needed)} topics to create: {', '.join(topics_needed)}")
     print()
     print(f"By topic (non-branded): {by_topic_nb}")
     print(f"By topic (branded    ): {by_topic_br}")
@@ -111,8 +111,8 @@ def main() -> int:
     br_path = OUT_DIR / "lancome_m1_branded_backlog.csv"
     _export_csv(non_branded, nb_path)
     _export_csv(branded, br_path)
-    print(f"CSV non-branded (push par défaut) : {nb_path}")
-    print(f"CSV branded (backlog)             : {br_path}")
+    print(f"CSV non-branded (default push): {nb_path}")
+    print(f"CSV branded (backlog)         : {br_path}")
 
     # Legacy single CSV for backward compatibility with the dashboard
     _export_csv(candidates, OUT_DIR / "lancome_m1_dry_run.csv")

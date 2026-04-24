@@ -1,22 +1,12 @@
-"""Module 4 — Explain Why.
+"""Module 4 — Explain Why (LEGACY — superseded by Module 3 Structural Audit).
 
-THE DIFFERENTIATOR.
+Kept in the codebase for backward compatibility with earlier runs.
+See `peec_brain.structural_audit` for the current implementation which
+extends this with a schema.org (Layer B) audit in addition to the
+editorial analysis originally implemented here.
 
-Most SEO tools tell you WHAT to optimize (low-visibility prompts, pages,
-keywords). None tell you WHY your page is not cited by LLMs on a given prompt.
-
-This module answers: given a prompt where the brand has low AI visibility
-and a suggested client page, derive the topical structure the LLM expects
-(from the actual Peec chat responses) and compare against the client page
-content (from get_url_content). Emit a structured content brief.
-
-Pipeline:
-  1. Parse LLM chat(s) for the target prompt → extract expected topics
-     (H2-level sections, ingredient names, product categories).
-  2. Fetch client page content via Peec get_url_content.
-  3. Compute coverage = intersection(expected_topics, page_content_tokens).
-  4. Generate a content brief with: missing topics, recommended H2s,
-     citation patterns to emulate.
+For any new run, prefer:
+    from peec_brain.structural_audit import structural_audit
 """
 
 from __future__ import annotations
@@ -32,7 +22,7 @@ from typing import Optional
 
 @dataclass
 class LLMResponse:
-    """One chat/answer from Peec — the assistant response text."""
+    """One chat / answer from Peec — the assistant response text."""
     chat_id: str
     prompt_text: str
     assistant_content: str
@@ -57,7 +47,7 @@ class PageAnalysis:
 @dataclass
 class ExpectedTopic:
     """One LLM-expected topic, extracted from chat responses."""
-    name: str                      # e.g. "Rétinol"
+    name: str                      # e.g. "Retinol"
     variants: list[str]            # alternate spellings
     frequency: int                 # how many chats mentioned it
     example_products: list[str]    # products cited alongside
@@ -81,7 +71,7 @@ class ContentBrief:
 
     def to_markdown(self) -> str:
         lines = [
-            f"# Content Brief — AI Visibility",
+            "# Content Brief — AI Visibility (legacy)",
             "",
             f"**Prompt**: {self.prompt_text}",
             f"**Target page**: {self.page_url}",
@@ -103,7 +93,7 @@ class ContentBrief:
 
         lines.extend([
             "",
-            "## Competitors citied on this query",
+            "## Competitors cited on this query",
             "",
         ])
         if self.citation_competitors:
@@ -138,33 +128,21 @@ class ContentBrief:
 
 
 _WS = re.compile(r"\s+")
-# Match any markdown heading line: "##", "###", "####"
 _HEADING_LINE_RE = re.compile(r"^(#{2,4})\s+(.+?)\s*$", re.MULTILINE)
 _BOLD_HEADING_RE = re.compile(r"\*\*([^*]+)\*\*")
 _NUMBERING_PREFIX_RE = re.compile(r"^(?:\d+[\.\)]\s*)+")
 _BOLD_WRAPPER_RE = re.compile(r"^\*+\s*|\s*\*+$")
 _META_TOPIC_FILTERS = {
-    "tendances à suivre", "tendances à suivre en 2026", "tendances",
-    "exemples populaires", "exemples", "conclusion", "en résumé",
-    "note", "notes", "à retenir", "pour conclure", "important",
+    "trends to watch", "trends",
+    "popular examples", "examples",
+    "conclusion", "to sum up", "summary",
+    "note", "notes", "takeaways",
+    "disclaimer", "warning", "good to know",
+    # French fallbacks
+    "tendances à suivre", "tendances", "exemples populaires",
+    "exemples", "en résumé", "à retenir", "pour conclure",
     "avertissement", "attention", "bon à savoir",
 }
-
-
-def _clean_heading(raw: str) -> str:
-    """Strip numbering, bold wrappers, parenthetical clarifications."""
-    s = raw.strip()
-    # Strip leading numbering "1. " / "1) " / "1.2. "
-    s = _NUMBERING_PREFIX_RE.sub("", s)
-    # Strip outer bold wrappers **X** → X
-    s = _BOLD_WRAPPER_RE.sub("", s).strip()
-    # Repeat once in case of nested
-    s = _BOLD_WRAPPER_RE.sub("", s).strip()
-    # Strip trailing colon
-    s = s.rstrip(":").strip()
-    # Strip parenthetical clarifications ("Retinol (ou Retinoïdes)" → "Retinol")
-    s = re.sub(r"\s*\([^)]+\)\s*$", "", s).strip()
-    return s
 
 
 def _strip_accents(s: str) -> str:
@@ -184,14 +162,19 @@ def _tokens(text: str) -> set[str]:
     return {w for w in _WS.split(t) if w and len(w) > 2}
 
 
-def extract_expected_topics(responses: list[LLMResponse]) -> list[ExpectedTopic]:
-    """Extract high-level topics the LLM expects (H2-level patterns).
+def _clean_heading(raw: str) -> str:
+    """Strip numbering, bold wrappers, parenthetical clarifications."""
+    s = raw.strip()
+    s = _NUMBERING_PREFIX_RE.sub("", s)
+    s = _BOLD_WRAPPER_RE.sub("", s).strip()
+    s = _BOLD_WRAPPER_RE.sub("", s).strip()
+    s = s.rstrip(":").strip()
+    s = re.sub(r"\s*\([^)]+\)\s*$", "", s).strip()
+    return s
 
-    Heuristics:
-      - Headings in markdown-style responses (### Retinol, **Acide Hyaluronique**)
-      - Capitalised standalone product category words in bullets
-      - Ingredients/product-category phrases appearing across multiple chats
-    """
+
+def extract_expected_topics(responses: list[LLMResponse]) -> list[ExpectedTopic]:
+    """Extract high-level topics the LLM expects (H2-level patterns)."""
     topic_counts: dict[str, dict] = {}
 
     for resp in responses:
@@ -204,10 +187,8 @@ def extract_expected_topics(responses: list[LLMResponse]) -> list[ExpectedTopic]
             if not headline or not (3 <= len(headline) <= 60):
                 continue
             key = _fold(headline)
-            # Filter meta/boilerplate
             if key in _META_TOPIC_FILTERS or any(f in key for f in _META_TOPIC_FILTERS):
                 continue
-            # Skip brand-name only headings
             if key in brand_keys:
                 continue
             topic_counts.setdefault(key, {
@@ -219,7 +200,7 @@ def extract_expected_topics(responses: list[LLMResponse]) -> list[ExpectedTopic]
             topic_counts[key]["frequency"] += 1
             topic_counts[key]["variants"].add(headline)
 
-        # Pattern 2: bold section leaders like **Retinol** (weaker signal)
+        # Pattern 2: bold section leaders (weaker signal)
         for m in _BOLD_HEADING_RE.finditer(content):
             headline = _clean_heading(m.group(1))
             if not headline or not (3 <= len(headline) <= 60):
@@ -229,7 +210,6 @@ def extract_expected_topics(responses: list[LLMResponse]) -> list[ExpectedTopic]
                 continue
             if key in _META_TOPIC_FILTERS or any(f in key for f in _META_TOPIC_FILTERS):
                 continue
-            # Ignore product-looking mentions (containing brand names together)
             if any(bk in key for bk in brand_keys):
                 continue
             topic_counts.setdefault(key, {
@@ -238,11 +218,9 @@ def extract_expected_topics(responses: list[LLMResponse]) -> list[ExpectedTopic]
                 "frequency": 0,
                 "example_products": set(),
             })
-            # Mentioning once in bold is weaker than a real heading
             topic_counts[key]["frequency"] += 0.5
             topic_counts[key]["variants"].add(headline)
 
-    # Filter: only topics that recurred OR have clear heading frequency >= 1
     topics: list[ExpectedTopic] = []
     for key, data in topic_counts.items():
         if data["frequency"] < 1:
@@ -250,11 +228,10 @@ def extract_expected_topics(responses: list[LLMResponse]) -> list[ExpectedTopic]
         topics.append(ExpectedTopic(
             name=data["name"],
             variants=sorted(data["variants"]),
-            frequency=int(data["frequency"] * 2) // 2,  # round half-up
+            frequency=int(data["frequency"] * 2) // 2,
             example_products=[],
         ))
 
-    # Sort by frequency desc
     topics.sort(key=lambda t: t.frequency, reverse=True)
     return topics
 
@@ -298,10 +275,8 @@ def build_content_brief(
     for t in expected_topics:
         found = False
         t_tokens = _tokens(t.name)
-        # Topic is covered if most of its meaningful tokens appear in page content
         if t_tokens and len(t_tokens & page.substantive_tokens) >= max(1, int(len(t_tokens) * 0.6)):
             found = True
-        # Also check variants
         if not found:
             for v in t.variants:
                 if _fold(v) in _fold(" ".join(page.substantive_tokens)):
@@ -314,13 +289,8 @@ def build_content_brief(
 
     coverage = covered / max(1, len(expected_topics))
 
-    # Diagnosis
     diagnosis = _diagnose(page, coverage, current_visibility)
-
-    # Recommended H2s = missing topics as H2 drafts
     recommended_h2s = [_to_h2(m) for m in missing]
-
-    # Action items
     action_items = _build_action_items(page, coverage, missing, citation_competitors)
 
     return ContentBrief(
@@ -343,38 +313,37 @@ def _diagnose(page: PageAnalysis, coverage: float, visibility: float) -> str:
     bits = []
     if page.url_classification == "CATEGORY_PAGE" and page.paragraph_count < 3:
         bits.append(
-            "La page cible est une page catégorie quasi sans contenu substantiel "
-            f"(≈{page.paragraph_count} paragraphes, {page.h2_count} H2). Les LLMs "
-            "ne trouvent rien à citer — ils préfèrent les pages 'explainer' "
-            "avec ingrédients, comparatifs, preuves et produits spécifiques."
+            "The target page is a category page with almost no substantive content "
+            f"(~{page.paragraph_count} paragraphs, {page.h2_count} H2s). LLMs find "
+            "nothing to cite — they prefer 'explainer' pages with ingredients, "
+            "comparisons, evidence and specific product picks."
         )
     elif page.h2_count < 3:
         bits.append(
-            f"La page n'a que {page.h2_count} H2 — les LLMs privilégient les "
-            "pages structurées avec 5-10+ sections claires."
+            f"The page has only {page.h2_count} H2s — LLMs favour structured pages "
+            "with 5-10+ clear sections."
         )
 
     if coverage < 0.3:
         bits.append(
-            f"Couverture thématique très faible ({coverage:.0%}) : la page ne "
-            "traite pas les sujets que les LLMs attendent sur cette requête."
+            f"Very low topical coverage ({coverage:.0%}): the page does not cover "
+            "the topics LLMs expect on this query."
         )
     elif coverage < 0.6:
         bits.append(
-            f"Couverture partielle ({coverage:.0%}) : la page touche certains "
-            "sujets attendus mais en rate plusieurs."
+            f"Partial coverage ({coverage:.0%}): the page touches some expected "
+            "topics but misses several."
         )
 
     if visibility == 0:
-        bits.append("Zéro mention de la marque détectée sur les chats analysés.")
+        bits.append("Zero brand mentions detected in the analysed chats.")
 
     if not bits:
-        bits.append("Page structurellement correcte — investiguer d'autres signaux (autorité, freshness).")
+        bits.append("Structurally comparable page — investigate other signals (authority, freshness).")
     return " ".join(bits)
 
 
 def _to_h2(topic: str) -> str:
-    # Strip leading numbering/punctuation
     cleaned = re.sub(r"^[\d\.\-\*\s]+", "", topic).strip()
     return cleaned[0].upper() + cleaned[1:] if cleaned else topic
 
@@ -385,26 +354,26 @@ def _build_action_items(
     items = []
     if page.url_classification == "CATEGORY_PAGE" and page.paragraph_count < 5:
         items.append(
-            "Créer un bloc éditorial en haut de la page catégorie (300-500 mots) "
-            "qui couvre les sous-thèmes ci-dessus avec des H2 dédiés."
+            "Create an editorial block at the top of the category page (300-500 "
+            "words) covering the sub-topics above with dedicated H2s."
         )
     if missing:
         items.append(
-            f"Ajouter des sections pour les {len(missing)} sujets manquants identifiés "
-            "(voir 'Recommended H2 sections')."
+            f"Add sections for the {len(missing)} missing topics identified "
+            "(see 'Recommended H2 sections')."
         )
     if competitors:
         items.append(
-            f"Étudier la structure des pages concurrentes citées par les LLMs "
-            f"({', '.join(competitors[:3])}) : quelle profondeur de contenu, "
-            "quelles citations externes, quelle structure H2/H3."
+            "Study the structure of the competitor pages the LLMs cite "
+            f"({', '.join(competitors[:3])}): content depth, external citations, "
+            "H2/H3 structure."
         )
     items.append(
-        "Citer 2-3 autorités externes (études, dermatologues, presse spécialisée) "
-        "dans le corps du contenu — les LLMs préfèrent les sources qui citent elles-mêmes."
+        "Cite 2-3 external authorities (studies, dermatologists, specialist "
+        "press) inside the copy — LLMs favour sources that themselves cite."
     )
     items.append(
-        "Nommer explicitement les ingrédients actifs et leurs bénéfices dans les "
-        "premiers paragraphes — pas seulement dans les fiches produit."
+        "Name active ingredients and their benefits explicitly in the first "
+        "paragraphs — not only inside product tiles."
     )
     return items

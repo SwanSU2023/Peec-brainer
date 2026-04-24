@@ -1,88 +1,88 @@
 ---
 name: peec-brain
-description: "Orchestrateur du plugin Peec Brain pour agences SEO et annonceurs pilotant la visibilité AI search. Chaîne les quatre sous-skills en matrice 2x2 (page × source / quoi × pourquoi) : peec-prompt-discovery pour générer les prompts à tracker (fusion GSC + Ahrefs + catalogue produit), peec-gap-analyzer pour prioriser les pages à optimiser (traffic-first), peec-structural-audit pour diagnostiquer pourquoi les pages ne sont pas citées (éditorial + schema.org), peec-citation-authority pour lister les domaines qui citent les concurrents mais jamais la marque (outreach-ready CSV). Exécute en mode onboarding (nouveau client — pipeline complet), weekly (revue hebdo — skip discovery), adhoc (audit ponctuel). Trigger : 'lance Peec Brain', 'onboarding AI visibility pour [client]', 'pipeline Peec Brain complet', 'Peec Brain weekly sur [marque]', 'audit AI visibility complet sur [prompt]'."
+description: "Orchestrator for the Peec Brain plugin. Designed for SEO agencies and in-house brand teams piloting AI search visibility. Chains the four sub-skills across a 2x2 matrix (page × source / what × why): peec-prompt-discovery to generate the prompts to track (fusion of GSC + Ahrefs + product catalog), peec-gap-analyzer to prioritise pages to optimise (traffic-first), peec-structural-audit to diagnose why pages are not cited (editorial + schema.org), peec-citation-authority to list the domains citing competitors but never the brand (outreach-ready CSV). Runs in onboarding mode (new client — full pipeline), weekly (review minus discovery), or adhoc (single prompt audit). Trigger: 'run Peec Brain', 'onboarding AI visibility for [client]', 'full Peec Brain pipeline', 'Peec Brain weekly on [brand]', 'complete AI visibility audit on [prompt]'."
 license: Stride Up — Peec Brain plugin
 ---
 
 # peec-brain
 
-## Quand l'utiliser
+## When to use it
 
-Point d'entrée unique du plugin. Trois modes :
+Single entry point for the plugin. Three modes:
 
-- **Mode onboarding** : nouveau client dans le portefeuille → pipeline complet 1 → 2 → 3 → 4
-- **Mode weekly** : revue hebdomadaire sur un compte actif → skip Module 1 (prompts déjà créés), run Modules 2 → 3 → 4
-- **Mode adhoc** : audit ponctuel sur un prompt spécifique → run Modules 3 + 4 uniquement, pour un prompt donné
+- **Onboarding mode** — a new client joins the portfolio → full pipeline 1 → 2 → 3 → 4.
+- **Weekly mode** — recurring review on an active account → skip Module 1 (prompts already created), run Modules 2 → 3 → 4.
+- **Adhoc mode** — one-off audit on a specific prompt → run Modules 3 + 4 only.
 
-## Inputs attendus
+## Expected inputs
 
-- `domain` (str, requis)
-- `peec_project_id` (str, requis)
-- `own_brand_id` (str, requis) : le `is_own=true` brand_id du client
-- `client_name` (str, requis)
-- `mode` (str, default "weekly") : `"onboarding"` | `"weekly"` | `"adhoc"`
-- `target_prompts` (list[str], optional) : prompts à cibler en mode adhoc. En weekly, défaut = tous les prompts à visibility < 30%.
-- `schedule_weekly` (bool, default false) : si true, crée un scheduled task via `anthropic-skills:schedule`
+- `domain` (str, required)
+- `peec_project_id` (str, required)
+- `own_brand_id` (str, required) — the `is_own=true` brand_id of the client
+- `client_name` (str, required)
+- `mode` (str, default `"weekly"`) — `"onboarding"` | `"weekly"` | `"adhoc"`
+- `target_prompts` (list[str], optional) — prompts to focus on in adhoc mode. In weekly mode the default is all prompts with visibility < 30%.
+- `schedule_weekly` (bool, default false) — if true, schedule via `anthropic-skills:schedule`.
 
-## Outputs par mode
+## Outputs per mode
 
 | Mode | M1 | M2 | M3 | M4 | Artifact |
 |---|---|---|---|---|---|
-| onboarding | ✓ create | ✓ | ✓ top 3 prompts | ✓ | ✓ créer |
+| onboarding | ✓ create | ✓ | ✓ top 3 prompts | ✓ | ✓ create |
 | weekly | — | ✓ | ✓ top 3 new gaps | ✓ delta | ✓ update |
-| adhoc | — | — | ✓ 1 prompt | ✓ 1 prompt | — |
+| adhoc | — | — | ✓ single prompt | ✓ single prompt | — |
 
-Fichiers produits :
-- `prompts_created.csv` (onboarding) — sortie Module 1
-- `content_gaps.csv` — sortie Module 2
-- `structural_audit_<prompt>.md` + `.json` — sortie Module 3 par prompt
-- `citation_authority_<prompt>.csv` — sortie Module 4 par prompt
-- URL artifact Cowork rafraîchissable
+Files produced:
+- `prompts_created.csv` (onboarding) — Module 1 output
+- `content_gaps.csv` — Module 2 output
+- `structural_audit_<prompt>.md` + `.json` — Module 3 output per prompt
+- `citation_authority_<prompt>.csv` — Module 4 output per prompt
+- URL of the refreshable Cowork artifact
 
-## Pipeline détaillé
+## Detailed pipeline
 
-### Mode onboarding (nouveau client)
+### Onboarding mode (new client)
 
-1. `peec-prompt-discovery` avec `dry_run=false` → crée 20-30 prompts + 5-6 topics
-2. Attendre 24h de collecte Peec (ou skip pour démo live)
-3. `peec-gap-analyzer` → CSV des 20 pages prioritaires
-4. Pour les 3 prompts avec plus grande priorité (0% visibility + fort trafic) :
-   - `peec-structural-audit` → brief par prompt
-   - `peec-citation-authority` → CSV RP par prompt
-5. `peec-radar-artifact` en création → URL livrable client
+1. `peec-prompt-discovery` with `dry_run=false` → creates 20-30 prompts + 5-6 topics.
+2. Wait 24h for Peec collection (or skip for live demo).
+3. `peec-gap-analyzer` → CSV of the top 20 priority pages.
+4. For the 3 highest-priority prompts (0% visibility + high traffic):
+   - `peec-structural-audit` → per-prompt brief
+   - `peec-citation-authority` → per-prompt PR CSV
+5. `peec-radar-artifact` in create mode → URL for the client deliverable.
 
-### Mode weekly (revue hebdo)
+### Weekly mode
 
-1. `peec-gap-analyzer` → détecte les nouveaux gaps
-2. Pour les 3 prompts où la visibility a chuté :
+1. `peec-gap-analyzer` → detects new gaps.
+2. For the 3 prompts where visibility dropped:
    - `peec-structural-audit`
    - `peec-citation-authority`
-3. `peec-radar-artifact` update
-4. Si `schedule_weekly=true`, planifie la prochaine itération
+3. `peec-radar-artifact` update.
+4. If `schedule_weekly=true`, schedule the next iteration.
 
-### Mode adhoc (audit single-prompt)
+### Adhoc mode (single-prompt audit)
 
-1. `peec-structural-audit` sur le prompt cible
-2. `peec-citation-authority` sur le même prompt
-3. Retourne brief + CSV outreach en un seul pass
+1. `peec-structural-audit` on the target prompt.
+2. `peec-citation-authority` on the same prompt.
+3. Returns the brief + outreach CSV in a single pass.
 
-## Skills dépendants
+## Dependent skills
 
 - `peec-prompt-discovery` (Module 1)
 - `peec-gap-analyzer` (Module 2)
 - `peec-structural-audit` (Module 3)
 - `peec-citation-authority` (Module 4)
-- `peec-radar-artifact` (optionnel — pour l'output client)
-- `anthropic-skills:schedule` (optionnel — pour le mode weekly automatisé)
+- `peec-radar-artifact` (optional — client-facing output)
+- `anthropic-skills:schedule` (optional — weekly automation)
 
-## Notes d'implémentation
+## Implementation notes
 
-- Chaque sous-skill est appelable indépendamment ; ce skill les chaîne mais ne duplique pas leur logique
-- Ordre de priorité d'exécution en cas de budget limité : M3 > M4 > M2 > M1 (le plus différenciant d'abord)
-- Gestion d'erreurs : si M3 échoue sur un prompt (ex : pas de chats disponibles), passer au prompt suivant sans bloquer M4
-- Logging explicite à chaque transition entre modules
-- Suggestion E-E-A-T : inclure un résumé exécutif en fin de run qui récapitule "3 gaps majeurs + 5 domaines HIGH pour outreach"
+- Each sub-skill is callable independently; this skill chains them but doesn't duplicate their logic.
+- Priority execution order when budget is constrained: M3 > M4 > M2 > M1 (most differentiating first).
+- Error handling: if M3 fails on a prompt (e.g. no chats available), move to the next without blocking M4.
+- Log each transition explicitly between modules.
+- E-E-A-T tip: emit an executive summary at the end of the run recapping "3 major gaps + 5 HIGH-priority outreach domains".
 
-## Statut
+## Status
 
-Version 1.0 — 4 modules opérationnels sur données réelles Lancôme. Orchestrateur conceptuel, Cowork chaîne les skills à la demande. Version 2.0 prévue avec orchestration Python directe (CLI `peec-brain run --mode weekly --project ...`).
+Version 1.0 — 4 modules running on real Lancôme data. Conceptual orchestrator; Cowork chains the skills on demand. Version 2.0 planned with direct Python CLI orchestration (`peec-brain run --mode weekly --project ...`).

@@ -1,59 +1,59 @@
 ---
 name: peec-radar-artifact
-description: "Crée ou met à jour un artifact Cowork 'Peec Brain Radar' qui consolide dans une interface rafraîchissable les trois outputs du gap analyzer (content gaps, digital PR, competitor wins). L'artifact appelle les MCP Peec et Ahrefs à chaque ouverture pour afficher des données fraîches. Utilisable en livrable agence auprès des clients. Trigger : 'crée mon radar Peec', 'dashboard Peec Brain', 'artifact AI visibility', 'livrable client Peec', 'radar hebdo Peec', 'mets à jour le radar Peec'."
+description: "Creates or updates a refreshable Cowork 'Peec Brain Radar' artifact that consolidates the three Gap Analyzer outputs (content gaps, digital PR targets, competitor wins) into a single client-facing dashboard. The artifact calls the Peec and Ahrefs MCPs on every open, so the data stays fresh. Usable as a white-label agency deliverable. Trigger: 'create my Peec radar', 'Peec Brain dashboard', 'AI visibility artifact', 'client deliverable Peec', 'weekly Peec radar', 'update my Peec radar'."
 license: Stride Up — Peec Brain plugin
 ---
 
 # peec-radar-artifact
 
-## Quand l'utiliser
+## When to use it
 
-Après un run du gap-analyzer, pour matérialiser les 3 outputs dans un artifact Cowork persistant et rafraîchissable. L'artifact devient le livrable hebdomadaire consommable par les équipes SEO ou envoyé au client.
+After a Gap Analyzer run, to materialise the three outputs into a refreshable Cowork artifact. The artifact becomes the weekly deliverable consumed by SEO teams or shared with the client.
 
-## Inputs attendus
+## Expected inputs
 
-- `domain` (str, requis) : domaine client
-- `peec_project_id` (str, requis)
-- `client_name` (str, requis) : pour l'en-tête de l'artifact
-- `gap_analyzer_output` (path ou dict) : résultat du skill peec-gap-analyzer
-- `branding` (dict, optional) : `{logo_url, primary_color, secondary_color}`
+- `domain` (str, required) — client domain
+- `peec_project_id` (str, required)
+- `client_name` (str, required) — shown in the artifact header
+- `gap_analyzer_output` (path or dict) — result from `peec-gap-analyzer`
+- `branding` (dict, optional) — `{logo_url, primary_color, secondary_color}`
 
 ## Outputs
 
-- URL de l'artifact Cowork créé (persistant, partageable)
-- Mode update : met à jour l'artifact existant sans recréer
+- URL of the created Cowork artifact (persistent, shareable)
+- Update mode: refreshes the existing artifact without recreating it
 
-## Structure de l'artifact
+## Artifact structure
 
-Trois onglets :
-- **Content Gaps** : tableau filtrable des pages à optimiser, colonne priority_score en gradient
-- **Digital PR** : tableau des domaines à contacter + cartes domaine avec DR / citations
-- **Competitor Wins** : timeline des pages concurrentes gagnantes + suggestions d'action
+Three tabs:
+- **Content Gaps** — filterable table of pages to optimise, priority_score gradient
+- **Digital PR** — table of domains to pitch + domain cards with DR / citation counts
+- **Competitor Wins** — timeline of competitor pages gaining citations + action suggestions
 
-En en-tête : nom client, date de dernière actualisation, bouton "Refresh from Peec".
-En pied : #BuiltWithPeec + logo Stride Up.
+Header: client name, last-refresh timestamp, `Refresh from Peec` button.
+Footer: `#BuiltWithPeec` + discreet Stride Up logo.
 
 ## Refresh mechanism
 
-L'artifact appelle `window.cowork.callMcpTool()` pour relancer les MCP Peec et Ahrefs à la demande. Exemple :
+The artifact calls `window.cowork.callMcpTool()` to re-run the Peec and Ahrefs MCPs on demand. Example:
 
 ```js
 const chats = await window.cowork.callMcpTool('peec:list_chats', { project_id, limit: 100 });
-// Recalcul des 3 outputs en JS côté artifact
+// then local orchestration to recompute the three outputs
 ```
 
-## MCP tools mobilisés
+## MCP tools used
 
-- Cowork : `create_artifact`, `update_artifact`
-- À l'exécution dans l'artifact : `list_chats`, `list_prompts`, `get_domain_report`, `site-explorer-*`, `brand-radar-*`
+- Cowork: `create_artifact`, `update_artifact`
+- At runtime inside the artifact: `list_chats`, `list_prompts`, `get_domain_report`, `site-explorer-*`, `brand-radar-*`
 
-## Notes design
+## Design notes
 
-- Palette : navy #1F2A44 / blue #2E75B6 / light #D5E8F0 / grey #F2F2F2
-- Typography : system-ui (pas de webfont)
-- Responsive : colonne unique sous 768px
-- Pas de framework CSS (évite les dépendances)
+- Palette: navy #1F2A44 / blue #2E75B6 / light #D5E8F0 / grey #F2F2F2
+- Typography: system-ui (no web fonts)
+- Responsive: single column below 768px
+- No CSS framework (keeps dependencies minimal)
 
-## Statut
+## Status
 
-Version 0.1 — squelette. Template HTML à construire en Phase 4.
+Version 0.1 — skeleton. HTML template lives at `dashboard/index.html` and is built via `scripts/build_dashboard.py`.

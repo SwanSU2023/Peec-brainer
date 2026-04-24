@@ -1,66 +1,59 @@
 ---
 name: peec-gap-analyzer
-description: "Module 2 du plugin Peec Brain. Produit la liste priorisée des pages client à optimiser pour l'AI visibility, via une priorisation TRAFIC-FIRST — différenciant par rapport aux autres content-gap analyzers du challenge (Ritwika workflow-1, Lukas content-gap-hunt, Drift Radar). La formule : priority_score = trafic_Ahrefs_top_page × (1 − AI_visibility_Peec). Le signal : une page qui fait déjà 1 000+ visites mensuelles depuis Google mais invisible dans les LLMs, c'est là que chaque euro d'optimisation doit aller en premier. Croise Peec get_brand_report (visibility par prompt) avec Ahrefs site-explorer-top-pages (trafic réel par URL). Output CSV exploitable direct par l'équipe contenu. Trigger : 'analyse mes gaps Peec', 'quelles pages optimiser pour les LLMs', 'content gap analysis prioritized by traffic', 'content gap [marque]', 'pages invisibles dans ChatGPT', 'traffic-first content gap'."
+description: "Module 2 of the Peec Brain plugin. Produces the prioritized list of client pages to optimise for AI visibility using a traffic-first approach that differentiates from the other content-gap analyzers in the challenge (Ritwika workflow-1, Lukas content-gap-hunt, Drift Radar). Formula: priority_score = Ahrefs_top_page_traffic × (1 − AI_visibility_Peec). The signal: a page already earning 1 000+ monthly visits on Google but invisible in LLMs is where every euro of optimisation work should land first. Filters branded prompts by default (visibility on those is structurally high). Enriches each row with page_type (commercial / editorial / landing / other) and top-3 competitors occupying the gap. Cross-references Peec get_brand_report (per-prompt visibility) with Ahrefs site-explorer-top-pages (real per-URL traffic). Output is a CSV the content team can execute directly. Trigger: 'analyse my Peec gaps', 'which pages to optimise for LLMs', 'content gap analysis prioritised by traffic', 'content gap [brand]', 'pages invisible in ChatGPT', 'traffic-first content gap'."
 license: Stride Up — Peec Brain plugin
 ---
 
 # peec-gap-analyzer
 
-## Quand l'utiliser
+## When to use it
 
-En revue hebdomadaire d'un compte client pour prioriser les actions SEO "AI-first" : quelles pages optimiser, quels sites contacter, quelles pages concurrentes surveiller.
+Weekly, on each client account, to produce the content team's optimisation backlog for the week.
 
-## Inputs attendus
+## Expected inputs
 
-- `domain` (str, requis) : domaine du client
-- `peec_project_id` (str, requis) : ID projet Peec
-- `competitor_domains` (list, optional) : domaines concurrents à surveiller
-- `min_traffic_page` (int, default 500) : trafic minimum par page pour être retenu
-- `min_citations_domain` (int, default 3) : fréquence minimum de citation pour un domaine Digital PR
+- `domain` (str, required) — client domain
+- `peec_project_id` (str, required) — target Peec project
+- `country` (str, default "fr")
+- `include_branded` (bool, default false) — if false, skip prompts tagged `branded:branded`
+- `min_traffic` (int, default 100) — minimum monthly traffic on the client page to be retained
 
 ## Outputs
 
-Trois CSV (+ optionnel : consolidation JSON pour artifact) :
-
-1. `content_gaps.csv` — colonnes : `page_url`, `query`, `impressions`, `ai_visibility_score`, `priority_score`
-2. `digital_pr.csv` — colonnes : `domain`, `citations_count`, `domain_rating`, `has_backlink`, `suggested_action`
-3. `competitor_wins.csv` — colonnes : `competitor_url`, `topic`, `citations_gained_30d`, `replica_suggestion`
+CSV `content_gaps.csv` with columns:
+- `rank`
+- `url`
+- `page_type` (commercial / editorial / landing / other)
+- `traffic_month`
+- `visibility_pct`
+- `prompt_id`, `prompt_text`
+- `branded` (branded | non_branded)
+- `top3_competitors_occupying` (pipe-separated list)
+- `priority_score`
+- `suggested_action`
 
 ## Pipeline
 
-### Output 1 — Content Gaps
+1. `get_brand_report` with `prompt_id` dimension → per-prompt visibility for the own brand.
+2. Filter prompts by `branded:non_branded` tag (default) unless `include_branded=true`.
+3. `site-explorer-top-pages` on the client domain → per-URL traffic.
+4. Match URL × prompt via keyword-token Jaccard overlap.
+5. For each matched pair, compute `priority_score = traffic × (1 − visibility)`.
+6. For each prompt in the gap list, aggregate `brands_mentioned[]` from recent chats to produce the `top3_competitors_occupying` column.
+7. Classify `page_type` via URL regex (commercial / editorial / landing / other).
+8. Rank and export CSV.
 
-1. Pour chaque prompt du projet Peec, échantillonner N chats et mesurer `ai_visibility_score = mentions_brand / total_chats`
-2. Pour chaque prompt avec score bas (< 30%), trouver les pages du client qui rankent sur ce prompt côté organic (via `site-explorer-organic-keywords` filtré par URL)
-3. Calculer `priority_score = impressions_page × (100 - ai_visibility_score)`
-4. Trier par priority_score décroissant
+## MCP tools used
 
-### Output 2 — Digital PR Hit List
+- Peec AI MCP: `get_brand_report`, `list_brands`, `list_prompts`, `list_chats`, `get_chat`
+- Ahrefs MCP: `site-explorer-top-pages`
 
-1. Agréger les domaines cités dans tous les chats Peec via `get_domain_report` (ou parsing des chats)
-2. Filtrer par `citations_count >= min_citations_domain`
-3. Cross-ref avec `site-explorer-referring-domains` du client
-4. Si domaine cité par LLMs MAIS absent des referring domains → cible Digital PR
-5. Enrichir : Domain Rating, nombre estimé de contacts, types de contenus
+## Implementation notes
 
-### Output 3 — Competitor Wins
+- Rank 1 is always the highest `priority_score`. Ties are broken by higher traffic.
+- URL classification is a simple regex, not an LLM call — fast and auditable.
+- The top-3 competitors per prompt are aggregated over the last 30 days (configurable).
 
-1. Pour chaque concurrent, appeler `brand-radar-cited-pages` sur la période récente
-2. Identifier les pages qui ont gagné en citations sur les 30 derniers jours
-3. Matcher contre le sitemap client pour détecter les gaps de contenu
-4. Suggérer action : créer page équivalente, optimiser page existante, ou outreach
+## Status
 
-## MCP tools mobilisés
-
-- Peec AI MCP : `list_prompts`, `list_chats`, `get_chat`, `get_brand_report`, `get_domain_report`, `get_url_report`
-- Ahrefs MCP : `site-explorer-organic-keywords`, `site-explorer-top-pages`, `site-explorer-referring-domains`, `brand-radar-cited-domains`, `brand-radar-cited-pages`
-
-## Notes d'implémentation
-
-- Échantillonnage des chats : 50-100 par prompt suffit pour un score stable
-- Cross-ref referring domains : matcher sur le domaine racine, pas l'URL complète
-- Pour les concurrents, reutiliser la liste `is_own = false` de `list_brands`
-
-## Statut
-
-Version 0.1 — squelette. À compléter une fois client vitrine confirmé.
+Version 1.1 — validated on Lancôme → 20 pages prioritised, top gap = `/beauty-magazine/la-routine-skincare-parfaite-pour-ma-peau.html` (1 169 visits/mo, 0% visibility on 5 prompts, competitors La Roche-Posay / Clarins / Sisley).

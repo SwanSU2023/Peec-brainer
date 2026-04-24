@@ -1,39 +1,39 @@
 # Structural Audit — Module 3
 
-**Prompt** : Quel est le meilleur sérum anti-âge en 2026 selon les dermatologues ?
-**Page marque** : https://lancome.fr/soin/par-categorie/serum-visage
-**Pages citées analysées** : 3
+**Prompt**: Quel est le meilleur sérum anti-âge en 2026 selon les dermatologues ?
+**Brand page**: https://lancome.fr/soin/par-categorie/serum-visage
+**Cited pages analysed**: 3
 
 ## Verdict
 
-Gaps structurels majeurs détectés : 3 éditorial(aux), 4 schema. Les LLMs ne trouvent pas le signal attendu sur la page marque — ils se rabattent sur les 3 pages éditoriales citées.
+Major structural gaps detected: 3 editorial, 4 schema. LLMs do not find the expected signal on the brand page — they fall back on the 3 editorial pages cited instead.
 
-## Layer A — Gaps éditoriaux (page marque vs majorité des pages citées)
+## Layer A — Editorial gaps (brand page vs majority of cited pages)
 
-- Structure H2 : la page marque a 0 H2 contre une moyenne de 4.3 sur les pages citées. Les LLMs privilégient les pages structurées (5+ H2 minimum).
-- Couverture ingrédients : 0 ingrédients actifs nommés contre une moyenne de 13.7 sur les pages citées. Les LLMs raisonnent par ingrédient actif ; une page qui ne les nomme pas est invisible.
-- Experts cités : 100% des pages citées contiennent des citations de dermatologues (MD, FAAD, DO). La page marque n'en a aucune.
+- H2 structure: the brand page has 0 H2s against an average of 4.3 on cited pages. LLMs favour structured pages (5+ H2s minimum).
+- Ingredient coverage: 0 active ingredients named on the brand page against an average of 13.7 on cited pages. LLMs reason by active ingredient — a page that doesn't name them is invisible.
+- Expert quotes: 100% of cited pages include quotes from dermatologists (MD, FAAD, DO). The brand page has none.
 
-## Layer B — Gaps de données structurées (schema.org)
+## Layer B — Structured-data gaps (schema.org)
 
-- Schema `Product` : présent sur 3/3 pages citées, absent sur la page marque.
-- Schema `AggregateRating` : présent sur 3/3 pages citées, absent sur la page marque.
-- Schema `Review` : présent sur 2/3 pages citées, absent sur la page marque.
-- Schema `Article` : présent sur 3/3 pages citées, absent sur la page marque.
+- Schema `Product`: present on 3/3 cited pages, absent on the brand page.
+- Schema `AggregateRating`: present on 3/3 cited pages, absent on the brand page.
+- Schema `Review`: present on 2/3 cited pages, absent on the brand page.
+- Schema `Article`: present on 3/3 cited pages, absent on the brand page.
 
-## Actions prescriptives
+## Prescriptive actions
 
-1. Ajouter au moins 4 sections H2 substantielles sur la page cible.
-2. Nommer explicitement les ingrédients actifs dans le contenu : acide hyaluronique, ascorbate, azelaic, ceramide, collagen, collagene, collagène, céramide.
-3. Inclure 1-2 citations de dermatologues experts (avec crédibilité MD/FAAD explicitement visible) sur la formulation des actifs clés.
-4. Implémenter JSON-LD `Product` sur les pages produit/catégorie.
-5. Exposer `AggregateRating` (note + nombre d'avis) en JSON-LD.
-6. Intégrer `Review` JSON-LD pour les avis produits.
-7. Restructurer la page comme `Article` avec auteur/date/reviewedBy visible en JSON-LD.
+1. Add at least 4 substantive H2 sections on the target page.
+2. Explicitly name active ingredients in the copy: acide hyaluronique, ascorbate, azelaic, ceramide, collagen, collagene, collagène, céramide.
+3. Include 1-2 dermatologist expert quotes (with MD/FAAD credibility explicitly visible) on the formulation of the key actives.
+4. Implement JSON-LD `Product` on product and category pages.
+5. Expose `AggregateRating` (rating value + review count) in JSON-LD.
+6. Add `Review` JSON-LD for individual product reviews.
+7. Restructure the page as `Article` with author, datePublished, and reviewedBy visible in JSON-LD.
 
-## Comparatif par page
+## Per-page comparison
 
-| URL | Citation rate | Type | H2 | Ingrédients | Experts | Table | JSON-LD types |
+| URL | Citation rate | Type | H2 | Ingredients | Experts | Table | JSON-LD types |
 |---|---|---|---|---|---|---|---|
 | lancome.fr/soin/par-categorie/serum-visage | 0.00 | CATEGORY_PAGE | 0 | 0 | 0 | — | BreadcrumbList, ListItem, Organization, WebPage |
 | vogue.fr/beaute/article/meilleurs-serums-anti-age | 0.36 | LISTICLE | 11 | 12 | 1 | — | AggregateRating, Article, BreadcrumbList, ListItem, Organization, Person, Product, Rating, Review |

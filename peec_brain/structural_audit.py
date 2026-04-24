@@ -143,37 +143,37 @@ class StructuralDiff:
         lines = [
             "# Structural Audit — Module 3",
             "",
-            f"**Prompt** : {self.prompt_text}",
-            f"**Page marque** : {self.brand_url}",
-            f"**Pages citées analysées** : {len(self.cited_audits)}",
+            f"**Prompt**: {self.prompt_text}",
+            f"**Brand page**: {self.brand_url}",
+            f"**Cited pages analysed**: {len(self.cited_audits)}",
             "",
             "## Verdict",
             "",
             self.verdict,
             "",
-            "## Layer A — Gaps éditoriaux (page marque vs majorité des pages citées)",
+            "## Layer A — Editorial gaps (brand page vs majority of cited pages)",
             "",
         ]
         if self.editorial_gaps:
             for g in self.editorial_gaps:
                 lines.append(f"- {g}")
         else:
-            lines.append("- Aucun gap éditorial significatif détecté.")
+            lines.append("- No significant editorial gap detected.")
 
         lines.extend([
             "",
-            "## Layer B — Gaps de données structurées (schema.org)",
+            "## Layer B — Structured-data gaps (schema.org)",
             "",
         ])
         if self.schema_gaps:
             for g in self.schema_gaps:
                 lines.append(f"- {g}")
         else:
-            lines.append("- Aucun gap schema détecté (ou audit schema non exécuté).")
+            lines.append("- No schema gap detected (or schema audit not executed).")
 
         lines.extend([
             "",
-            "## Actions prescriptives",
+            "## Prescriptive actions",
             "",
         ])
         for i, a in enumerate(self.prescriptive_actions, start=1):
@@ -181,15 +181,15 @@ class StructuralDiff:
 
         lines.extend([
             "",
-            "## Comparatif par page",
+            "## Per-page comparison",
             "",
-            "| URL | Citation rate | Type | H2 | Ingrédients | Experts | Table | JSON-LD types |",
+            "| URL | Citation rate | Type | H2 | Ingredients | Experts | Table | JSON-LD types |",
             "|---|---|---|---|---|---|---|---|",
         ])
         all_audits = [self.brand_audit] + self.cited_audits
         for a in all_audits:
             short_url = a.url.replace("https://www.", "").replace("https://", "")[:50]
-            types = ", ".join(a.schema.jsonld_types) if a.schema.jsonld_types else "(non audité)"
+            types = ", ".join(a.schema.jsonld_types) if a.schema.jsonld_types else "(not audited)"
             table_mark = "✓" if a.editorial.comparison_table_count > 0 else "—"
             lines.append(
                 f"| {short_url} | {a.citation_rate:.2f} | {a.url_classification} | "
@@ -463,7 +463,7 @@ def structural_audit(
             editorial_gaps=["Aucune page citée à comparer."],
             schema_gaps=[],
             prescriptive_actions=[],
-            verdict="Audit non exécutable — pas de pages de référence.",
+            verdict="Audit not executable — no reference pages to compare against.",
         )
 
     # --- Editorial gaps ---
@@ -476,20 +476,21 @@ def structural_audit(
 
     if brand_page.editorial.h2_count < avg_h2 * 0.5:
         editorial_gaps.append(
-            f"Structure H2 : la page marque a {brand_page.editorial.h2_count} H2 "
-            f"contre une moyenne de {avg_h2:.1f} sur les pages citées. "
-            f"Les LLMs privilégient les pages structurées (5+ H2 minimum)."
+            f"H2 structure: the brand page has {brand_page.editorial.h2_count} H2s "
+            f"against an average of {avg_h2:.1f} on cited pages. "
+            "LLMs favour structured pages (5+ H2s minimum)."
         )
         actions.append(
-            f"Ajouter au moins {int(avg_h2) - brand_page.editorial.h2_count} sections H2 "
-            "substantielles sur la page cible."
+            f"Add at least {int(avg_h2) - brand_page.editorial.h2_count} substantive "
+            "H2 sections on the target page."
         )
 
     if len(brand_page.editorial.ingredient_mentions) < avg_ingredients * 0.5:
         editorial_gaps.append(
-            f"Couverture ingrédients : {len(brand_page.editorial.ingredient_mentions)} ingrédients "
-            f"actifs nommés contre une moyenne de {avg_ingredients:.1f} sur les pages citées. "
-            "Les LLMs raisonnent par ingrédient actif ; une page qui ne les nomme pas est invisible."
+            f"Ingredient coverage: {len(brand_page.editorial.ingredient_mentions)} active "
+            f"ingredients named on the brand page against an average of {avg_ingredients:.1f} "
+            "on cited pages. LLMs reason by active ingredient — a page that doesn't name "
+            "them is invisible."
         )
         missing_ingredients = set()
         for p in cited_pages:
@@ -498,50 +499,49 @@ def structural_audit(
         if missing_ingredients:
             top_missing = sorted(missing_ingredients)[:8]
             actions.append(
-                f"Nommer explicitement les ingrédients actifs dans le contenu : "
+                "Explicitly name active ingredients in the copy: "
                 f"{', '.join(top_missing)}."
             )
 
     if tables_present_ratio >= majority_threshold and brand_page.editorial.comparison_table_count == 0:
         editorial_gaps.append(
-            f"Tables comparatives : {tables_present_ratio:.0%} des pages citées en contiennent, "
-            "la page marque n'en a aucune. Healthline et équivalents utilisent des tableaux "
-            "Prix × Type de peau × Ingrédients × Utilisation."
+            f"Comparison tables: {tables_present_ratio:.0%} of cited pages include one, "
+            "the brand page has none. Healthline-style pages use tables mapping "
+            "Price × Skin type × Ingredients × Usage."
         )
         actions.append(
-            "Ajouter un tableau comparatif des produits de la gamme avec colonnes : "
-            "prix, type de peau, ingrédients clés, moment d'application."
+            "Add a comparison table covering the range's products with columns: "
+            "price, skin type, key ingredients, time of application."
         )
 
     if experts_present_ratio >= majority_threshold and brand_page.editorial.expert_quote_count == 0:
         editorial_gaps.append(
-            f"Experts cités : {experts_present_ratio:.0%} des pages citées contiennent des "
-            "citations de dermatologues (MD, FAAD, DO). La page marque n'en a aucune."
+            f"Expert quotes: {experts_present_ratio:.0%} of cited pages include quotes from "
+            "dermatologists (MD, FAAD, DO). The brand page has none."
         )
         actions.append(
-            "Inclure 1-2 citations de dermatologues experts (avec crédibilité MD/FAAD "
-            "explicitement visible) sur la formulation des actifs clés."
+            "Include 1-2 dermatologist expert quotes (with MD/FAAD credibility explicitly "
+            "visible) on the formulation of the key actives."
         )
 
     if toc_ratio >= majority_threshold and not brand_page.editorial.has_toc:
         editorial_gaps.append(
-            f"Navigation interne : {toc_ratio:.0%} des pages citées ont un TOC ou des "
-            "ancres 'Jump to'. La page marque n'en a pas — les LLMs utilisent ces ancres "
-            "pour extraire des sections."
+            f"Internal navigation: {toc_ratio:.0%} of cited pages have a TOC or 'Jump to' "
+            "anchors. The brand page has none — LLMs use these anchors to extract sections."
         )
         actions.append(
-            "Ajouter un bloc 'Dans cet article' / 'Jump to' en haut de la page "
-            "avec des ancres vers chaque H2."
+            "Add an 'In this article' / 'Jump to' block at the top of the page with "
+            "anchors to each H2."
         )
 
     if tested_ratio >= majority_threshold and not brand_page.editorial.has_how_we_tested:
         editorial_gaps.append(
-            f"Méthodologie de test : {tested_ratio:.0%} des pages citées ont une section "
-            "'How we tested' ou 'Comment nous avons testé'. Signal E-E-A-T fort pour les LLMs."
+            f"Testing methodology: {tested_ratio:.0%} of cited pages have a 'How we tested' "
+            "section. Strong E-E-A-T signal for LLMs."
         )
         actions.append(
-            "Ajouter une section 'Comment nous avons sélectionné' expliquant la méthodologie "
-            "de choix des produits mis en avant."
+            "Add a 'How we selected these products' section explaining the methodology "
+            "behind the featured products."
         )
 
     # --- Schema gaps ---
@@ -566,43 +566,43 @@ def structural_audit(
                     type_counts[stype] = type_counts.get(stype, 0) + 1
 
         _ACTIONS = {
-            "Product":         "Implémenter JSON-LD `Product` sur les pages produit/catégorie.",
-            "AggregateRating": "Exposer `AggregateRating` (note + nombre d'avis) en JSON-LD.",
-            "Review":          "Intégrer `Review` JSON-LD pour les avis produits.",
-            "FAQPage":         "Ajouter une section FAQ avec balisage `FAQPage` JSON-LD.",
-            "HowTo":           "Ajouter une section routine d'usage avec balisage `HowTo`.",
-            "BreadcrumbList":  "Ajouter un fil d'Ariane avec `BreadcrumbList` JSON-LD.",
-            "Article":         "Restructurer la page comme `Article` avec auteur/date/reviewedBy visible en JSON-LD.",
+            "Product":         "Implement JSON-LD `Product` on product and category pages.",
+            "AggregateRating": "Expose `AggregateRating` (rating value + review count) in JSON-LD.",
+            "Review":          "Add `Review` JSON-LD for individual product reviews.",
+            "FAQPage":         "Add an FAQ section with `FAQPage` JSON-LD markup.",
+            "HowTo":           "Add a usage-routine section with `HowTo` JSON-LD markup.",
+            "BreadcrumbList":  "Add a breadcrumb navigation with `BreadcrumbList` JSON-LD.",
+            "Article":         "Restructure the page as `Article` with author, datePublished, and reviewedBy visible in JSON-LD.",
         }
         for stype, count in type_counts.items():
             ratio = count / n
             has_on_brand = getattr(brand_page.schema, _SCHEMA_ATTR[stype], False)
             if ratio >= majority_threshold and not has_on_brand:
                 schema_gaps.append(
-                    f"Schema `{stype}` : présent sur {count}/{n} pages citées, absent sur la page marque."
+                    f"Schema `{stype}`: present on {count}/{n} cited pages, absent on the brand page."
                 )
                 if stype in _ACTIONS:
                     actions.append(_ACTIONS[stype])
     else:
         schema_gaps.append(
-            "Layer B (schema) non exécuté — requiert le HTML brut des pages. "
-            "Utiliser `python -m peec_brain.fetch_and_audit <urls>` hors sandbox."
+            "Layer B (schema) not executed — requires raw HTML of the pages. "
+            "Run `python3 scripts/fetch_and_audit.py` outside restricted networks."
         )
 
     # --- Verdict ---
     if not editorial_gaps and not schema_gaps:
         verdict = (
-            "La page marque est structurellement comparable aux pages citées. "
-            "Investigate d'autres causes : autorité de domaine, fraîcheur du contenu, "
-            "ou absence d'auteur/E-E-A-T visible."
+            "The brand page is structurally comparable to the cited pages. "
+            "Investigate other causes: domain authority, content freshness, "
+            "or missing author / E-E-A-T signals."
         )
     else:
         n_ed = len(editorial_gaps)
         n_sc = len([s for s in schema_gaps if not s.startswith("Layer B")])
         verdict = (
-            f"Gaps structurels majeurs détectés : {n_ed} éditorial(aux), "
-            f"{n_sc} schema. Les LLMs ne trouvent pas le signal attendu sur la "
-            f"page marque — ils se rabattent sur les {n} pages éditoriales citées."
+            f"Major structural gaps detected: {n_ed} editorial, {n_sc} schema. "
+            "LLMs do not find the expected signal on the brand page — they fall back "
+            f"on the {n} editorial pages cited instead."
         )
 
     return StructuralDiff(

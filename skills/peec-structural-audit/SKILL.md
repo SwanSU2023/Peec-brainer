@@ -1,62 +1,62 @@
 ---
 name: peec-structural-audit
-description: "Module 3 du plugin Peec Brain — LE DIFFÉRENCIATEUR. Répond à 'pourquoi ChatGPT ne cite pas ma page quand il cite celles de mes concurrents' en deux couches structurelles qu'aucun autre outil de l'écosystème Peec n'aligne aujourd'hui. Layer A — structure éditoriale : parse Peec get_url_content pour mesurer densité H2/H3, ingrédients actifs nommés, citations d'experts (MD FAAD DO), tables comparatives, sections standardisées par produit, TOC / ancres, signaux 'how we tested' + 'meet the experts'. Layer B — structure technique schema.org : parse le HTML brut via extruct pour compter la présence des types JSON-LD que les pages citées shippent (Product, AggregateRating, Review, FAQPage, HowTo, BreadcrumbList, Article, Organization) vs la page marque. Diff = signaux présents sur la majorité des pages citées mais absents sur la page marque. Output un brief markdown + JSON avec verdict + gaps éditoriaux + gaps schema + actions prescriptives. Trigger : 'pourquoi ma page n'est pas citée par ChatGPT', 'structural audit de ma page vs concurrents', 'diff schema page marque vs pages citées', 'structural audit [prompt]', 'pourquoi les LLMs me snobent sur [prompt]', 'content brief AI-ready', 'comparatif structurel page marque vs LLM-cited pages'."
+description: "Module 3 of the Peec Brain plugin — THE DIFFERENTIATOR. Answers 'why doesn't ChatGPT cite my page when my competitors' pages are cited' across two structural layers no other submission in the Peec ecosystem aligns. Layer A — editorial structure: parses Peec get_url_content to measure H2/H3 density, named active ingredients, expert quotes (MD FAAD DO), comparison tables, standardised per-product sections, TOC / anchors, 'how we tested' and 'meet the experts' signals. Layer B — technical schema.org structure: parses raw HTML via extruct to count presence of JSON-LD types that cited pages ship (Product, AggregateRating, Review, FAQPage, HowTo, BreadcrumbList, Article, Organization) vs the brand page. Diff = signals present on a majority of cited pages but absent on the brand page. Output: markdown brief + JSON with verdict + editorial gaps + schema gaps + prescriptive actions. Trigger: 'why isn't my page cited by ChatGPT', 'structural audit of my page vs competitors', 'diff schema brand page vs cited pages', 'structural audit [prompt]', 'why do LLMs skip me on [prompt]', 'AI-ready content brief', 'structural comparison brand page vs LLM-cited pages'."
 license: Stride Up — Peec Brain plugin
 ---
 
 # peec-structural-audit
 
-## Quand l'utiliser
+## When to use it
 
-Pour chaque prompt où la marque est en faible visibility dans Peec et où le Gap Analyzer (Module 2) a déjà identifié une page cible : le Structural Audit donne la réponse à la question suivante, que personne d'autre ne traite — *pourquoi* cette page spécifique n'est-elle pas citée ?
+For each prompt where the brand has low Peec visibility and the Gap Analyzer (Module 2) has already identified a target page: the Structural Audit answers the question nobody else is answering — *why* is this specific page not being cited?
 
-## Inputs attendus
+## Expected inputs
 
-- `prompt_id` (str, requis) : ID du prompt Peec à analyser
-- `peec_project_id` (str, requis)
-- `brand_target_url` (str, requis) : URL de la page marque à auditer (typiquement issue du Gap Analyzer)
-- `n_cited_urls` (int, default 5) : nombre de pages LLM-citées à utiliser comme référence
-- `run_layer_b` (bool, default true) : si false, skip l'audit schema (pour environnements sans accès réseau)
+- `prompt_id` (str, required) — target Peec prompt ID
+- `peec_project_id` (str, required)
+- `brand_target_url` (str, required) — brand page to audit (typically output of Gap Analyzer)
+- `n_cited_urls` (int, default 5) — number of LLM-cited pages to use as reference
+- `run_layer_b` (bool, default true) — if false, skip the schema audit (for network-restricted environments)
 
 ## Outputs
 
-- `structural_audit_<prompt_id>.md` — brief markdown humain lisible, partageable en tant que livrable rédacteur/dev
-- `structural_audit_<prompt_id>.json` — structure exploitable en aval
-- Schéma JSON :
+- `structural_audit_<prompt_id>.md` — human-readable brief, shareable with content and dev teams
+- `structural_audit_<prompt_id>.json` — downstream-exploitable structure
+- JSON schema:
   - `prompt_text`, `brand_url`
-  - `brand_audit` : editorial (h2_count, ingredient_mentions, expert_quote_count, ...) + schema (jsonld_types, has_product, has_aggregate_rating, ...)
-  - `cited_audits` : même structure × N pages citées
-  - `editorial_gaps` : list[str] humainement lisibles
-  - `schema_gaps` : list[str]
-  - `prescriptive_actions` : list[str]
-  - `verdict` : str
+  - `brand_audit` — editorial (h2_count, ingredient_mentions, expert_quote_count, ...) + schema (jsonld_types, has_product, has_aggregate_rating, ...)
+  - `cited_audits` — same structure × N cited pages
+  - `editorial_gaps` — list of human-readable strings
+  - `schema_gaps` — list of strings
+  - `prescriptive_actions` — list of strings
+  - `verdict` — string
 
 ## Pipeline
 
-1. Résoudre le prompt_id → `get_chat` + `list_chats` pour extraire les URL effectivement citées (Peec `get_url_report` filtré par prompt_id est le chemin recommandé).
-2. `get_url_content` sur chaque URL citée + sur l'URL marque → contenu markdown extrait par Peec.
-3. **Layer A (éditorial)** : parse le markdown avec regex pour chaque signal. Pas de dépendance réseau.
-4. **Layer B (schema)** : fetch le HTML brut de chaque URL (via requests ou via `scripts/fetch_and_audit.py` standalone si sandbox). Parse via `extruct` → extraction JSON-LD / microdata / RDFa / Open Graph.
-5. Agrège : moyenne / ratio par signal sur les pages citées.
-6. Diff : emit un gap si le signal est présent sur ≥ 50% des pages citées mais absent sur la page marque.
-7. Génère les actions prescriptives + verdict.
+1. Resolve `prompt_id` → `get_chat` + `list_chats` to extract the URLs actually cited (Peec `get_url_report` filtered by prompt_id is the recommended path).
+2. `get_url_content` on each cited URL + the brand URL → markdown content extracted by Peec.
+3. **Layer A (editorial)**: parse markdown with regex for each signal. No network dependency.
+4. **Layer B (schema)**: fetch raw HTML for each URL (via requests, or via `scripts/fetch_and_audit.py` standalone if sandbox). Parse with `extruct` → extract JSON-LD / microdata / RDFa / Open Graph.
+5. Aggregate: mean / ratio per signal across cited pages.
+6. Diff: emit a gap when a signal is present on ≥ 50% of cited pages but absent on the brand page.
+7. Generate prescriptive actions + verdict.
 
-## MCP tools mobilisés
+## MCP tools used
 
-- Peec AI MCP : `list_chats`, `get_chat`, `get_url_content`, `get_url_report`
-- Dépendance Python : `extruct`, `requests`, `w3lib`
+- Peec AI MCP: `list_chats`, `get_chat`, `get_url_content`, `get_url_report`
+- Python dependencies: `extruct`, `requests`, `w3lib`
 
-## Notes d'implémentation
+## Implementation notes
 
-- Peec `get_url_content` renvoie du markdown processé via Mozilla Readability, ce qui strip les balises `<script type="application/ld+json">`. Layer B doit donc fetcher le HTML brut séparément.
-- Un script standalone `scripts/fetch_and_audit.py` est fourni pour environnements bloqués (Cowork sandbox) : il fait le fetch + extruct offline, produit un JSON exploitable par ce skill en mode `--schema-from`.
-- Filtres anti-faux-positif sur les patterns d'expert quotes : exclut les mentions de type "Dr Jart" (nom de marque) vs "Dr Jenny Liu, MD FAAD" (véritable expert).
-- La classification URL de Peec (`HOMEPAGE`, `CATEGORY_PAGE`, `PRODUCT_PAGE`, `LISTICLE`, `COMPARISON`, etc.) est conservée dans l'output et utilisée pour ajuster le verdict — une CATEGORY_PAGE sans contenu substantiel est diagnosticablement différente d'un LISTICLE mal structuré.
+- Peec `get_url_content` returns markdown processed via Mozilla Readability, which strips `<script type="application/ld+json">` tags. Layer B therefore needs to fetch raw HTML separately.
+- A standalone script `scripts/fetch_and_audit.py` is provided for restricted environments (Cowork sandbox): it fetches + extracts offline, produces a JSON consumable by this skill in `--schema-from` mode.
+- Anti-false-positive filters on expert-quote patterns: excludes brand names like "Dr Jart" but keeps real experts like "Dr Jenny Liu, MD FAAD".
+- Peec's URL classification (`HOMEPAGE`, `CATEGORY_PAGE`, `PRODUCT_PAGE`, `LISTICLE`, `COMPARISON`, etc.) is preserved in the output and used to adjust the verdict — a content-less CATEGORY_PAGE has a different diagnostic than a poorly structured LISTICLE.
 
-## Validation réelle
+## Real-world validation
 
-Exécuté sur Lancôme · prompt "meilleur sérum anti-âge 2026 selon les dermatologues" (0% visibility) → diagnostic généré : 3 gaps éditoriaux + 4 gaps schema + 7 actions prescriptives. Verdict : la page catégorie Lancôme n'a ni H2, ni ingrédient actif nommé, ni expert cité, ni Product/AggregateRating/Review/Article JSON-LD, alors que 3/3 pages citées (Vogue FR, Healthline, Vogue UK) ont toutes l'Article + au moins 2 types Product-family.
+Run on Lancôme × prompt "best anti-aging serum 2026 according to dermatologists" (0% visibility) → diagnostic generated: 3 editorial gaps + 4 schema gaps + 7 prescriptive actions. Verdict: the Lancôme category page has no H2s, no named active ingredient, no cited expert, no Product/AggregateRating/Review/Article JSON-LD, while 3/3 cited pages (Vogue FR, Healthline, Vogue UK) all ship Article + multiple Product-family types.
 
-## Statut
+## Status
 
-Version 1.0 — fonctionnel sur données réelles Lancôme. Prochaines évolutions : fetch automatique du HTML brut (actuellement via script standalone), support multi-prompts en batch, génération d'un composite "content brief" en un seul appel.
+Version 1.0 — operational on real data. Next upgrades: automatic raw-HTML fetch (currently via standalone script), multi-prompt batch support, one-call composite "content brief" generation.

@@ -1,50 +1,53 @@
 ---
 name: peec-prompt-discovery
-description: "Module 1 du plugin Peec Brain. Génère les prompts Peec AI à tracker en fusionnant TROIS sources SEO pour des résultats plus précis qu'aucune source seule ne produit : (1) GSC queries quand ownership disponible, (2) Ahrefs site-explorer-organic-keywords pour la donnée de rank et de trafic, (3) un catalogue produit spécifique au client qui permet de générer des prompts sur des références nommées (ex 'La Vie Est Belle Intense avis') que les tools GSC-only ou keyword-only ne peuvent pas atteindre. Classifie l'intent (informational / commercial / branded / comparison / transactional), reformule en questions naturelles, dédoublonne contre les prompts Peec existants, propose des topics, crée en batch via create_prompts. Dry-run par défaut. Trigger : 'génère mes prompts Peec', 'prompt discovery multi-source', 'fusion GSC + Ahrefs + catalogue pour Peec', 'bootstrap Peec pour [marque]', 'découvre les prompts à tracker sur [domaine]'."
+description: "Module 1 of the Peec Brain plugin. Generates Peec AI prompts to track by fusing THREE SEO sources for results that no single source produces on its own: (1) GSC queries when ownership is available, (2) Ahrefs site-explorer-organic-keywords for rank and traffic data, (3) a client product catalog to reach specific product-name prompts (e.g. 'La Vie Est Belle Intense reviews') that GSC-only or keyword-only tools cannot reach. Also ships a branded/non-branded overlay: non-branded prompts are pushed to Peec by default, branded ones go to a backlog CSV. Classifies intent (informational / commercial / branded / comparison / transactional), reformulates into natural questions, deduplicates against existing Peec prompts, proposes topics, creates in batch via create_prompts. Dry-run by default. Trigger: 'generate my Peec prompts', 'multi-source prompt discovery', 'fuse GSC + Ahrefs + catalog into Peec', 'bootstrap Peec for [brand]', 'discover prompts to track on [domain]'."
 license: Stride Up — Peec Brain plugin
 ---
 
 # peec-prompt-discovery
 
-## Quand l'utiliser
+## When to use it
 
-Dès qu'un nouveau client arrive dans le portefeuille Peec et qu'on a besoin de peupler son compte avec des prompts pertinents — ou périodiquement (mensuel) pour enrichir les prompts trackés en fonction de l'évolution des keywords du domaine.
+Whenever a new client joins the Peec portfolio and needs initial prompt seeding — or periodically (monthly) to enrich existing prompts as the domain's keywords evolve.
 
-## Inputs attendus
+## Expected inputs
 
-- `domain` (str, requis) : domaine du client (ex. "lancome.com")
-- `peec_project_id` (str, requis) : ID du projet Peec cible
-- `min_volume` (int, default 100) : volume de recherche minimum pour qu'un keyword Ahrefs soit retenu
-- `max_prompts` (int, default 30) : nombre max de prompts à créer en une passe
-- `dry_run` (bool, default true) : si true, liste les candidats sans créer dans Peec
+- `domain` (str, required) — client domain (e.g. "lancome.com")
+- `peec_project_id` (str, required) — target Peec project
+- `min_volume` (int, default 100) — minimum search volume for an Ahrefs keyword to be retained
+- `max_prompts` (int, default 30) — max prompts created per pass
+- `dry_run` (bool, default true) — if true, list candidates without creating them in Peec
 
 ## Outputs
 
-- Si `dry_run=true` : CSV `prompt_candidates.csv` avec colonnes [query, volume, intent, topic_suggested, status]
-- Si `dry_run=false` : les prompts sont créés dans Peec, ID retournés, + CSV d'audit
+- If `dry_run=true`: `prompt_candidates.csv` with columns `[query, volume, intent, branded, topic_suggested, status]`
+- If `dry_run=false`: prompts created in Peec, IDs returned, + audit CSV
+- When the branded/non-branded overlay is active: split output into `prompts_non_branded.csv` (priority push) + `prompts_branded_backlog.csv` (opt-in push).
 
 ## Pipeline
 
-1. Lister les prompts Peec existants (`list_prompts`) pour le projet cible
-2. Récupérer les top keywords organic Ahrefs du domaine (`site-explorer-organic-keywords`)
-3. Filtrer par volume minimum et dédupliquer
-4. Reformuler chaque keyword en question naturelle (template LLM ou règles)
-5. Classer par intent : informational / commercial / branded
-6. Matcher contre les topics Peec existants ou créer de nouveaux topics
-7. Dédoublonner contre les prompts Peec existants (similarité string + embeddings)
-8. Batch create : `create_topics` puis `create_prompts` par groupes de 5
+1. List existing Peec prompts (`list_prompts`) for the target project.
+2. Fetch the top Ahrefs organic keywords for the domain (`site-explorer-organic-keywords`).
+3. Filter by minimum volume and deduplicate.
+4. Reformulate each keyword into a natural question (template or LLM).
+5. Classify intent: informational / commercial / branded / comparison / transactional.
+6. Classify branded vs non-branded using the client's `brand_patterns`, `product_patterns`, `subbrand_patterns`.
+7. Match against existing Peec topics or propose new ones.
+8. Dedupe against existing Peec prompts (string similarity + embeddings).
+9. Batch create: `create_topics` then `create_prompts` in groups of 5. Tag each with `branded:non_branded` or `branded:branded`.
 
-## MCP tools mobilisés
+## MCP tools used
 
-- Peec AI MCP : `list_projects`, `list_topics`, `list_prompts`, `create_topics`, `create_prompts`
-- Ahrefs MCP : `site-explorer-organic-keywords`, `keywords-explorer-matching-terms`
+- Peec AI MCP: `list_projects`, `list_topics`, `list_prompts`, `list_tags`, `create_topics`, `create_prompts`, `create_tags`
+- Ahrefs MCP: `site-explorer-organic-keywords`, `keywords-explorer-matching-terms`
 
-## Notes d'implémentation
+## Implementation notes
 
-- Rate limits : batch de 5 prompts maximum par appel, sleep 1s entre batches
-- La reformulation "query → question" peut utiliser un simple template : "Qu'est-ce que [X] ?", "Comment [Y] ?", "Meilleur [Z]" selon l'intent
-- Pour les marques multilingues, filtrer les keywords par `country_code` (FR par défaut)
+- Rate limits: max 5 prompts per call, 1s sleep between batches.
+- Query-to-question reformulation can use a simple template: "What is [X]?", "How [Y]?", "Best [Z]" depending on intent.
+- For multilingual brands, filter keywords by `country_code` (defaults to FR).
+- The branded/non-branded classification is accent-insensitive and case-insensitive.
 
-## Statut
+## Status
 
-Version 0.1 — squelette. À compléter une fois client vitrine confirmé.
+Version 1.0 — validated on Lancôme → 22 prompts proposed across 6 topics (split 16 branded / 6 non-branded) from 57 existing prompts + 30 GSC/Ahrefs keywords. Next extensions: product-name detection via embeddings for more resilient matching, multi-language pipeline.

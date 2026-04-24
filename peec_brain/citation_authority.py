@@ -1,10 +1,10 @@
 """Module 4 — Citation Authority Audit.
 
 Produces an outreach-ready CSV of the domains that LLMs cite when
-recommending competitors, but that have never mentioned the brand.
-Enriches each domain with Ahrefs Domain Rating, classifies it in a
-typology (editorial / specialized / retailer / UGC / corporate /
-reference), and assigns an outreach priority based on citation
+recommending competitors, but that have never mentioned the own brand.
+Each domain is enriched with its Ahrefs Domain Rating, classified into
+a typology (editorial / specialized / retailer / UGC / corporate /
+reference), and assigned an outreach priority based on citation
 frequency × DR × typology weight.
 
 The pitch: "Here are the 25 domains that decided not to talk about
@@ -201,42 +201,42 @@ def _priority_bucket(score: float) -> str:
 
 _ACTIONS = {
     "editorial_premium": (
-        "Outreach beauté/lifestyle : pitcher un hero product avec angle tendance + "
-        "échantillons presse. Prioriser journalistes beauté listés sur le masthead."
+        "Beauty/lifestyle outreach: pitch a hero product with a trend angle and press "
+        "samples. Prioritise beauty journalists listed on the masthead."
     ),
     "editorial_health": (
-        "Pitcher angle dermatologique : validation scientifique, partenariat expert "
-        "MD, études cliniques sur les actifs phares."
+        "Pitch the dermatologist angle: scientific validation, MD expert partnership, "
+        "clinical studies on flagship active ingredients."
     ),
     "specialized": (
-        "Envoyer produits à review + briefing technique sur les ingrédients. "
-        "Préparer à être benchmarké contre la concurrence explicitement."
+        "Send products for review plus a technical ingredient briefing. Expect to be "
+        "benchmarked against competitors explicitly."
     ),
     "retailer": (
-        "Activer le partenariat retail : mise en avant merchandising, reviews "
-        "clients incitées, placement dans les guides ventes."
+        "Activate the retail partnership: merchandising highlight, incentivised customer "
+        "reviews, placement in seasonal buying guides."
     ),
     "ugc": (
-        "Seeding communautaire : influenceurs de niche, créateurs dermato, partenariat "
-        "modérateurs forum. Pas de pitch traditionnel."
+        "Community seeding: niche influencers, dermatology creators, forum moderator "
+        "partnerships. Not a traditional press pitch."
     ),
     "reference": (
-        "Soumission d'études / white papers si pertinent. Long-cycle — focus auto-"
-        "rité scientifique plutôt que couverture immédiate."
+        "Submit studies / white papers when relevant. Long cycle — focus on scientific "
+        "authority rather than immediate coverage."
     ),
     "corporate": (
-        "À investiguer : probablement une propriété concurrent-adjacente. Décider si "
-        "à exclure ou traiter en RP indirecte."
+        "Investigate first: likely a competitor-adjacent property. Decide whether to "
+        "exclude or handle via indirect PR."
     ),
     "institutional": (
-        "Cycle long : soumission à comités, conférences professionnelles, partenariats "
-        "scientifiques."
+        "Long cycle: submissions to committees, industry conferences, scientific "
+        "partnerships."
     ),
     "competitor": (
-        "Ne rien faire côté outreach. À monitorer pour benchmarking."
+        "No outreach action. Monitor for benchmarking purposes."
     ),
     "own": "—",
-    "other": "Qualification manuelle requise.",
+    "other": "Manual qualification required.",
 }
 
 
@@ -287,11 +287,11 @@ def enrich_and_prioritize(
         n_comp = len(competitor_hits)
         notes_bits = []
         if dr is None:
-            notes_bits.append("DR non mesuré (enrichissement Ahrefs à lancer)")
+            notes_bits.append("DR not measured (Ahrefs enrichment pending)")
         if n_comp >= 5:
-            notes_bits.append(f"{n_comp} concurrents cités — forte concurrence éditoriale")
+            notes_bits.append(f"{n_comp} competitors cited — strong editorial competition")
         elif n_comp == 1:
-            notes_bits.append(f"Un seul concurrent cité ({competitor_hits[0]}) — fenêtre ouverte")
+            notes_bits.append(f"Only one competitor cited ({competitor_hits[0]}) — open window")
 
         enriched.append(EnrichedDomain(
             domain=d.domain,
